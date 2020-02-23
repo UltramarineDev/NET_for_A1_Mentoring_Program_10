@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="MyCustomRules.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="MyCustomRules.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="StyleCop" Version="6.1.0" />
+    <PackageReference Include="StyleCop.CSharp" Version="6.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="MyCustomRules.cs">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Compile>
+  </ItemGroup>
+
+</Project>

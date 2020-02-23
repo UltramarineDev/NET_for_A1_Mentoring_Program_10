@@ -1,4 +1,5 @@
 ﻿using System;
+using ClassLibrary;
 
 namespace IntroductionToNet
 {
@@ -8,7 +9,7 @@ namespace IntroductionToNet
         {
             Console.WriteLine("Enter user name:");
             var userName = Console.ReadLine();
-            Console.WriteLine($"Hello, {userName}!");
+            Console.WriteLine(Class1.GetGreeting(userName));
         }
     }
 }

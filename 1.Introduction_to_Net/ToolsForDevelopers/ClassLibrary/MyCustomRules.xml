@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SourceAnalyzer Name="My Custom Rules">
+  <Description>
+    Custom rules enforcing requirements listed in tools for developer homework.
+  </Description>
+  <Rules>
+    <RuleGroup Name="FunRulesYouWillLove">
+      <Rule Name="ClassAccessModifiersMustBePublic" CheckId="MY1000">
+        <Context>The code should not contain any non public classes.</Context>
+        <Description>Validates that the code does not contain any non public classes.</Description>
+      </Rule>
+      <Rule Name="ClassShouldContainFieldsIdAndName" CheckId="MY1001">
+        <Context>The code should not contain any non public classes.</Context>
+        <Description>Validates that the class contains fields Name and Id.</Description>
+      </Rule>
+      <Rule Name="ClassShouldMarkedWithDataContractAttribute" CheckId="MY1002">
+        <Context>The code should not contain any non public classes.</Context>
+        <Description>Validates that the class marked with DataContract attribute.</Description>
+      </Rule>
+    </RuleGroup>
+  </Rules>
+</SourceAnalyzer>

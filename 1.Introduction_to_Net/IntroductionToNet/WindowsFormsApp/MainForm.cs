@@ -1,4 +1,5 @@
 ﻿using System.Windows.Forms;
+using ClassLibrary;
 
 namespace WindowsFormsApp
 {
@@ -47,7 +48,19 @@ namespace WindowsFormsApp
 
         private void Button_Click(object sender, System.EventArgs e)
         {
-            result.Text = "Hello, " + textBox.Text + "!";
+            result.Text = Class1.GetGreeting(textBox.Text);
+        }
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // MainForm
+            // 
+            this.ClientSize = new System.Drawing.Size(687, 487);
+            this.Name = "MainForm";
+            this.ResumeLayout(false);
+
         }
     }
 }
