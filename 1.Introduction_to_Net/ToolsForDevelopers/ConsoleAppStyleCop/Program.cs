@@ -10,7 +10,12 @@ namespace ConsoleAppStyleCop
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
-            Console.WriteLine(NumberOperations.DigitsCount(123));
+
+            var operations = new NumberOperations();
+
+            Console.WriteLine(operations.DigitsCount(123));
+            Console.WriteLine(operations.Add(1, 2));
+
         }
 
         private class ChildClass

@@ -6,32 +6,38 @@ namespace LibraryNuget
 {
     public class NumberOperations
     {
-        private static NLogger logger = new NLogger();
-        public static double Add(double x, double y)
+        private NLogger logger;
+        
+        public NumberOperations()
+        {
+            logger = new NLogger();
+        }
+        
+        public double Add(double x, double y)
         {
             var result = x + y;
             logger.Log(result.ToString());
             return result;
         }
 
-        public static double Substarct(double x, double y)
+        public double Substarct(double x, double y)
         {
             var result = x - y;
             logger.Log(result.ToString());
             return result;
         }
 
-        public static double DigitsCount(double number)
+        public double DigitsCount(double number)
         {
             return Math.Floor(Math.Log10(number) + 1);
         }
 
-        public static bool IsDigitInNumber(int number, int digit)
+        public bool IsDigitInNumber(int number, int digit)
         {
             return number.ToString().Contains(digit.ToString());
         }
 
-        public static IEnumerable<int> GetDigitsCollection(int number)
+        public IEnumerable<int> GetDigitsCollection(int number)
         {
             return Array.ConvertAll(number.ToString().ToArray(), x => (int)x);
         }

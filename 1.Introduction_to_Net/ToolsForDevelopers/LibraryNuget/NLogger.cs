@@ -7,7 +7,7 @@ namespace LibraryNuget
         public void Log(string lineToLog)
         {
             ILogger logger = LogManager.GetLogger(lineToLog);
-            logger.Info(lineToLog);
+            logger.Debug(lineToLog);
         }
     }
 }

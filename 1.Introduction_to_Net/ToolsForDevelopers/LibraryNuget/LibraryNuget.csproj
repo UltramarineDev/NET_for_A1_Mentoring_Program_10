@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>Marina</Authors>
-    <Version>1.0.3</Version>
+    <Version>1.0.8</Version>
     <PackageLicenseFile></PackageLicenseFile>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
@@ -17,5 +17,11 @@
   <ItemGroup>
     <PackageReference Include="NLog" Version="4.6.8" />
     <PackageReference Include="NLog.Config" Version="4.6.8" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="C:\Users\Marina\.nuget\packages\nlog.config\4.6.8\contentFiles\any\any\NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>
