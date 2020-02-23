@@ -2,5 +2,6 @@
 
 1. Introduction to .NET
 
-    * Homework: Introduction to .NET
-    * Homework: Tools for developers
+    * Homework: [Introduction to .NET] (https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/tree/master/1.Introduction_to_Net/IntroductionToNet)
+    * Homework: [Xamarin app (https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/tree/master/1.Introduction_to_Net/Temp_XamarinForms1)
+    * Homework: [Tools for developers] (https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/tree/master/1.Introduction_to_Net/ToolsForDevelopers)
