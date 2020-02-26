@@ -48,7 +48,7 @@ namespace WindowsFormsApp
 
         private void Button_Click(object sender, System.EventArgs e)
         {
-            result.Text = Class1.GetGreeting(textBox.Text);
+            result.Text = Greeting.GetGreeting(textBox.Text);
         }
 
         private void InitializeComponent()

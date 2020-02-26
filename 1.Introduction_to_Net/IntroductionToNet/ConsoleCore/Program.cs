@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using ClassLibrary;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration.CommandLine;
 
 namespace IntroductionToNet
 {
@@ -7,9 +10,18 @@ namespace IntroductionToNet
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Enter user name:");
-            var userName = Console.ReadLine();
-            Console.WriteLine(Class1.GetGreeting(userName));
+            //Console.WriteLine(Greeting.GetGreeting(args[0]));
+            var builder = new ConfigurationBuilder();
+            builder.AddCommandLine(args, new Dictionary<string, string>
+            {
+                ["-Name"] = "Name"
+            });
+
+            var config = builder.Build();
+
+            var name = config["Name"];
+
+            Console.WriteLine($"Hello, {name}!");
         }
     }
 }
