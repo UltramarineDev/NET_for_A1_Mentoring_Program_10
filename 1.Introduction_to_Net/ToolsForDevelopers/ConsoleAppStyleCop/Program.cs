@@ -15,7 +15,6 @@ namespace ConsoleAppStyleCop
 
             Console.WriteLine(operations.DigitsCount(123));
             Console.WriteLine(operations.Add(1, 2));
-
         }
 
         private class ChildClass

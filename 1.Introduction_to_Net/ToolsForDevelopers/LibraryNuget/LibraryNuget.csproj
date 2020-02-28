@@ -3,15 +3,26 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>Marina</Authors>
-    <Version>1.0.8</Version>
+    <Version>1.0.16</Version>
     <PackageLicenseFile></PackageLicenseFile>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="readme.html" />
-    <None Remove="readme.html" />
-    <None Remove="readme.html" />
+    <Content Include="readme.txt">
+      <Pack>true</Pack>
+      <PackagePath>\</PackagePath>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="app.config.install.xdt">
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="app.config.uninstall.xdt">
+    </Content>
   </ItemGroup>
 
   <ItemGroup>

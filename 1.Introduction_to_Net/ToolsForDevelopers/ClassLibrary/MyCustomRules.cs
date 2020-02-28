@@ -14,8 +14,7 @@ namespace ClassLibrary
             if (csharpDocument.RootElement != null && !csharpDocument.RootElement.Generated)
             {
                 csharpDocument.WalkDocument(
-                    new CodeWalkerElementVisitor<object>(this.VisitElement),
-                    null, null);
+                    new CodeWalkerElementVisitor<object>(this.VisitElement));
             }
         }
 
