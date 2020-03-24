@@ -12,4 +12,4 @@
 
 3. Basic SQL
 
-   * [Baseic SQL](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/tree/master/3.BasicSQL)
+   * [Basic SQL](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/tree/master/3.BasicSQL)
