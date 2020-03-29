@@ -9,6 +9,7 @@
    
    * [C# Fundamentals](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/tree/master/2.C%23Fundamentals/CSharpFundamentals/CSharpFundamentals)
    * Base Class Library: []
+   * Homework: [Exception handling](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/tree/master/2.C%23Fundamentals/CSharpFundamentals), Task: [Task](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/blob/master/2.C%23Fundamentals/ExceptionHandlingTask.pdf)
 
 3. Basic SQL
 
@@ -18,4 +19,4 @@
 
 5. ORM
    
-   * [ORM](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/tree/master/5.ORM/Northwind), Task: [Task2](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/blob/master/5.ORM/Task%202.pdf)
+   * Homework: [ORM](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/tree/master/5.ORM/Northwind), Task: [Task2](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/blob/master/5.ORM/Task%202.pdf)
