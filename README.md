@@ -7,7 +7,7 @@
 
 2. C# Fundamentals
    
-   * [C# Fundamentals](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/tree/master/2.C%23Fundamentals/CSharpFundamentals/CSharpFundamentals)
+   * [C# Fundamentals](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/tree/master/2.C%23Fundamentals/CSharpFundamentals/CSharpFundamentals), Task: [Task](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/blob/master/2.C%23Fundamentals/CSharpFundamentalsTask.pdf)
    * Base Class Library: []
    * Homework: [Exception handling](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/tree/master/2.C%23Fundamentals/CSharpFundamentals), Task: [Task](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/blob/master/2.C%23Fundamentals/ExceptionHandlingTask.pdf)
 
