@@ -9,11 +9,8 @@ namespace CSharpFundamentals.Tests
         public void GetAllFilesAndFolders_PredicateIsNull_OK()
         {
             const string path = "C:\\TEST";
-
             EventNotifier eventNotifier = new EventNotifier();
             IPrinter printer = new SequencePrinter();
-            var fileSystemVisitor = new FileSystemVisitor(eventNotifier, printer);
-            fileSystemVisitor.GetAllFilesAndFolders(path);
 
             string[] expected = {
                 "C:\\TEST\\WPS Writer Document.wps",
@@ -27,8 +24,13 @@ namespace CSharpFundamentals.Tests
                 "C:\\TEST\\Новая папка (2)\\BCL\\NewFolder",
             };
 
-            string[] actual = printer.entriesSequense;
+            var fileSystemVisitor = new FileSystemVisitor(eventNotifier);
+            foreach (var entry in fileSystemVisitor.VisitFolder(path))
+            {
+                printer.Print(entry);
+            }
 
+            string[] actual = printer.entriesSequense;
             Assert.AreEqual(expected, actual);
         }
 
@@ -41,8 +43,6 @@ namespace CSharpFundamentals.Tests
             Func<string, bool> predicate = predicateGenerator.GetPredicate;
             EventNotifier eventNotifier = new EventNotifier();
             IPrinter printer = new SequencePrinter();
-            var fileSystemVisitor = new FileSystemVisitor(predicate, eventNotifier, printer);
-            fileSystemVisitor.GetAllFilesAndFolders(path);
 
             string[] expected = {
                 "C:\\TEST\\WPS Writer Document.wps",
@@ -59,6 +59,12 @@ namespace CSharpFundamentals.Tests
                 "C:\\TEST\\Новая папка (2)\\BCL\\NewFolder",
             };
 
+            var fileSystemVisitor = new FileSystemVisitor(predicate, eventNotifier);
+            foreach (var entry in fileSystemVisitor.VisitFolder(path))
+            {
+                printer.Print(entry);
+            }
+
             string[] actual = printer.entriesSequense;
 
             Assert.AreEqual(expected, actual);
@@ -70,8 +76,8 @@ namespace CSharpFundamentals.Tests
             var path = "Invalid\\path";
             EventNotifier eventNotifier = new EventNotifier();
             IPrinter printer = new SequencePrinter();
-            var fileSystemVisitor = new FileSystemVisitor(eventNotifier, printer);
-            fileSystemVisitor.GetAllFilesAndFolders(path);
+            var fileSystemVisitor = new FileSystemVisitor(eventNotifier);
+            fileSystemVisitor.VisitFolder(path);
 
             string[] expected = { };
             string[] actual = printer.entriesSequense;

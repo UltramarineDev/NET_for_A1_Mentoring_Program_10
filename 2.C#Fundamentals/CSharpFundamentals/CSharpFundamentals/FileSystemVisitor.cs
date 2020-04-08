@@ -8,7 +8,6 @@ namespace CSharpFundamentals
     {
         private readonly Func<string, bool> _predicate;
         private readonly EventNotifier _eventNotifier;
-        private readonly IPrinter _printer;
 
         private const string StartMessage = "Start searching";
         private const string FinishMessage = "Finish searching";
@@ -17,39 +16,55 @@ namespace CSharpFundamentals
         private const string FilteredFileFinded = "Filtered file finded";
         private const string FilteredDirectoryFinded = "Filtered directory finded";
 
-        public FileSystemVisitor(EventNotifier eventNotifier, IPrinter printer) : this(null, eventNotifier, printer) { }
+        public bool isStop;
+        public bool isExclude;
 
-        public FileSystemVisitor(Func<string, bool> predicate, EventNotifier eventNotifier, IPrinter printer)
+        public FileSystemVisitor(EventNotifier eventNotifier) : this(null, eventNotifier) { }
+
+        public FileSystemVisitor(Func<string, bool> predicate, EventNotifier eventNotifier)
         {
             _predicate = predicate;
             _eventNotifier = eventNotifier;
-            _printer = printer;
+            isStop = false;
+            isExclude = false;
         }
 
-        public void GetAllFilesAndFolders(string path)
+        public IEnumerable<string> VisitFolder(string path)
         {
             if (!Directory.Exists(path))
             {
-                Console.WriteLine("Invalid path");
-                return;
+                yield break;
             }
 
-            _eventNotifier.Publish(StartMessage);
+            _eventNotifier.Publish(StartMessage, isStop);
 
             foreach (var entry in GenerateFileSystemEntries(path))
             {
+                if (isStop)
+                {
+                    _eventNotifier.Publish(StartMessage, isStop);
+                    yield break;
+                }
+
+                if (isExclude)
+                {
+                    _eventNotifier.Publish(StartMessage, isStop, isExclude);
+                    isExclude = false;
+                    continue;
+                }
+
                 GenerateEvent(entry, DirectoryFinded, FileFinded);
-                _printer.Print(entry);
+                yield return entry;
 
                 var filtered = TryFilter(entry, out var filteredEntry);
                 if (filtered)
                 {
                     GenerateEvent(filteredEntry, FilteredDirectoryFinded, FilteredFileFinded);
-                    _printer.Print(filteredEntry);
+                    yield return entry;
                 }
             }
 
-            _eventNotifier.Publish(FinishMessage);
+            _eventNotifier.Publish(FinishMessage, isStop);
         }
 
         private IEnumerable<string> GenerateFileSystemEntries(string path)
