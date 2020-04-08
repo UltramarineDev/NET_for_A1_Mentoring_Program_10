@@ -7,10 +7,11 @@
 
 2. C# Fundamentals
    
-   * [C# Fundamentals](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/tree/master/2.C%23Fundamentals/CSharpFundamentals/CSharpFundamentals), Task: [Task](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/blob/master/2.C%23Fundamentals/CSharpFundamentalsTask.pdf)
-   * Base Class Library: []
+   * Homework: [C# Fundamentals](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/tree/master/2.C%23Fundamentals/CSharpFundamentals/CSharpFundamentals), Task: [Task](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/blob/master/2.C%23Fundamentals/CSharpFundamentalsTask.pdf)
+   * Homework: [Base Class Library](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/tree/master/2.C%23Fundamentals/CSharpFundamentals/BCL), Task: [Task](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/blob/master/2.C%23Fundamentals/BCLTask.pdf)
    * Homework: [Exception handling](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/tree/master/2.C%23Fundamentals/CSharpFundamentals), Task: [Task](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/blob/master/2.C%23Fundamentals/ExceptionHandlingTask.pdf)
-
+   * Homework: [Reflection](), Task: [Task](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/blob/master/2.C%23Fundamentals/ReflectionTask.pdf)
+   
 3. Basic SQL
 
    * [Basic SQL](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/tree/master/3.BasicSQL)
