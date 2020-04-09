@@ -25,4 +25,4 @@
    
 6. LINQ
 
-   * Homework(partially done in scope of external training): [LINQ](), Task: [Task]()
+   * Homework: [LINQ](), Task: [Task]()
