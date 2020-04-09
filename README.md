@@ -25,4 +25,4 @@
    
 6. LINQ
 
-   * Homework: [LINQ](), Task: [Task]()
+   * Homework: [LINQ](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/blob/master/6.LINQ/Task/LinqSamples.cs), Task: [Task](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/blob/master/6.LINQ/Task.pdf)
