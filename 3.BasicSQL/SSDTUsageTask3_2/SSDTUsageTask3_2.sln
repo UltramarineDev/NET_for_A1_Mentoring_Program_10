@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29519.87
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SSDTUsageTask3_2", "SSDTUsageTask3_2\SSDTUsageTask3_2.csproj", "{B2F5E93E-B1A8-47E0-9041-31FB0F8D4CD6}"
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "DatabaseProject", "DatabaseProject\DatabaseProject.sqlproj", "{33257147-4453-464D-AB1F-7E136371D8A8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,12 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B2F5E93E-B1A8-47E0-9041-31FB0F8D4CD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B2F5E93E-B1A8-47E0-9041-31FB0F8D4CD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B2F5E93E-B1A8-47E0-9041-31FB0F8D4CD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B2F5E93E-B1A8-47E0-9041-31FB0F8D4CD6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33257147-4453-464D-AB1F-7E136371D8A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33257147-4453-464D-AB1F-7E136371D8A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33257147-4453-464D-AB1F-7E136371D8A8}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{33257147-4453-464D-AB1F-7E136371D8A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33257147-4453-464D-AB1F-7E136371D8A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33257147-4453-464D-AB1F-7E136371D8A8}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

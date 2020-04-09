@@ -171,8 +171,9 @@ SELECT City, CustomerID
 FROM Customers
 GROUP BY City, CUstomerID
 
-------руководителя?
 --6.По таблице Employees найти для каждого продавца его руководителя.
+SELECT EmployeeID, ReportsTo
+FROM Employees
 
 --Задание 2.3. Использование JOIN
 --1.Определить продавцов, которые обслуживают регион 'Western' (таблица Region). 
