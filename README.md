@@ -26,3 +26,8 @@
 ### 6. LINQ
 
    * Homework: [LINQ](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/blob/master/6.LINQ/Task/LinqSamples.cs), Task: [Task](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/blob/master/6.LINQ/Task.pdf)
+   
+### 10. Serialization
+
+   * Homework: [Task 1](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/tree/master/10.Serialization/Serialization/Serialization), Task: [Task 1 Description](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/blob/master/10.Serialization/Task%20(basic%20serialization).pdf)
+ 
