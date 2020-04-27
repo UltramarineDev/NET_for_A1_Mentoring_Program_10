@@ -30,4 +30,6 @@
 ### 10. Serialization
 
    * Homework: [Task 1](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/tree/master/10.Serialization/Serialization/Serialization), Task: [Task 1 Description](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/blob/master/10.Serialization/Task%20(basic%20serialization).pdf)
+   * Homework: [Task 2](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/tree/master/10.Serialization/Task/Task/Task), Task: [Task 2 Description](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/blob/master/10.Serialization/Task%20(Custom%20serialization).pdf)
+   
  
