@@ -26,6 +26,10 @@
 ### 6. LINQ
 
    * Homework: [LINQ](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/blob/master/6.LINQ/Task/LinqSamples.cs), Task: [Task](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/blob/master/6.LINQ/Task.pdf)
+
+### 8. Logging and monitoring
+   
+   * Homework: [Logging and monitoring](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/tree/master/8.Logging_and_monitoring/Task/Task/MvcMusicStore), Task: [Task](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/blob/master/8.Logging_and_monitoring/Task.pdf)
    
 ### 10. Serialization
 
