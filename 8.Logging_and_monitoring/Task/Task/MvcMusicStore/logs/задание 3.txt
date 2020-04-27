@@ -1,0 +1,15 @@
+Используя API или командную строку Log Parser, создайте генератор отчетов по логам. В отчете должно фигурировать:
+ - Общее количество каждого типа записей
+
+logparser "select COUNT(*) AS Errors_Count from C:\NET_for_A1_Mentoring_Program_10\8.Logging_and_monitoring\Task\Task\MvcMusicStore\logs\2020-04-27.log where Text like '%ERROR%' " -o:datagrid
+
+logparser "select COUNT(*) AS Info_Count from C:\NET_for_A1_Mentoring_Program_10\8.Logging_and_monitoring\Task\Task\MvcMusicStore\logs\2020-04-27.log where Text like '%INFO%' " -o:datagrid
+
+logparser "select COUNT(*) AS Debug_Count from C:\NET_for_A1_Mentoring_Program_10\8.Logging_and_monitoring\Task\Task\MvcMusicStore\logs\2020-04-27.log where Text like '%DEBUG%' " -o:datagrid
+
+ - Перечень ошибок (записей с кодом Error)
+
+logparser "select * from C:\NET_for_A1_Mentoring_Program_10\8.Logging_and_monitoring\Task\Task\MvcMusicStore\logs\2020-04-27.log where Text like '%ERROR%' " -o:datagrid
+
+logparser "select * from C:\NET_for_A1_Mentoring_Program_10\8.Logging_and_monitoring\Task\Task\MvcMusicStore\logs\2020-04-27.log " -o:datagrid
+
