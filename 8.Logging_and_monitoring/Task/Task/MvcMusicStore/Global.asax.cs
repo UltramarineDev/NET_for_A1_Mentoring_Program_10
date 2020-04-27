@@ -4,6 +4,8 @@ using System.Web.Routing;
 using Autofac;
 using Autofac.Integration.Mvc;
 using MvcMusicStore.Controllers;
+using MvcMusicStore.Infrastructure;
+using PerformanceCounterHelper;
 
 namespace MvcMusicStore
 {
@@ -14,7 +16,7 @@ namespace MvcMusicStore
             var builder = new ContainerBuilder();
             builder.RegisterControllers(typeof(HomeController).Assembly);
             builder.RegisterType<MvcMusicLogger>().As<ILogger>();
-
+            builder.RegisterType<Counters>();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(builder.Build()));
 
             AreaRegistration.RegisterAllAreas();
@@ -25,10 +27,10 @@ namespace MvcMusicStore
             var logger = DependencyResolver.Current.GetService(typeof(ILogger)) as ILogger;
             logger.Info("Application started");
 
-            //using (var counterHelper = PerformanceHelper.CreateCounterHelper<Counters>("Test project"))
-            //{
-            //    counterHelper.RawValue(Counters.GoToHome, 0);
-            //}
+            using (var counterHelper = PerformanceHelper.CreateCounterHelper<Counters>("Test project"))
+            {
+                counterHelper.RawValue(Counters.GoToHome, 0);
+            }
         }
 
         protected void Application_Error()
