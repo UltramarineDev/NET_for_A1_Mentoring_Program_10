@@ -31,6 +31,10 @@
    
    * Homework: [Logging and monitoring](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/tree/master/8.Logging_and_monitoring/Task/Task/MvcMusicStore), Task: [Task](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/blob/master/8.Logging_and_monitoring/Task.pdf)
    
+### 9. Caching
+
+   * Homework: [Caching](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/tree/master/9.Caching/Samples), Task: [Task](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/blob/master/9.Caching/Task.pdf)
+   
 ### 10. Serialization
 
    * Homework: [Task 1](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/tree/master/10.Serialization/Serialization/Serialization), Task: [Task 1 Description](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/blob/master/10.Serialization/Task%20(basic%20serialization).pdf)
