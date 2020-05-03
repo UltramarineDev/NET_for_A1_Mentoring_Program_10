@@ -49,6 +49,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.XML" />
@@ -69,8 +70,13 @@
     <Compile Include="CategoriesManager.cs" />
     <Compile Include="CategoriesMemoryCache.cs" />
     <Compile Include="CategoriesRedisCache.cs" />
+    <Compile Include="Task2\EntitiesManager.cs" />
+    <Compile Include="Task2\EntitiesRedisCache.cs" />
+    <Compile Include="Task2\EntityMemoryCache.cs" />
     <Compile Include="ICategoriesCache.cs" />
     <Compile Include="CacheTests.cs" />
+    <Compile Include="Task2\IEntityCache.cs" />
+    <Compile Include="Task2\InvalidationCacheManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -83,6 +89,7 @@
       <Name>NorthwindLibrary</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

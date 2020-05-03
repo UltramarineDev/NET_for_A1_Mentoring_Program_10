@@ -16,7 +16,9 @@ namespace FibonacciCache
                 EndPoints = { "localhost" },
                 AbortOnConnectFail = false
             };
+
             _connection = ConnectionMultiplexer.Connect(cfg);
+            _serializer = new DataContractSerializer(typeof(int));
         }
 
         public void AddOrUpdate(int key, int value)
