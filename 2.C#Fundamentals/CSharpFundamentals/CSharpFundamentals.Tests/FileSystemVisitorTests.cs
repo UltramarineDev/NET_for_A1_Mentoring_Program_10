@@ -9,14 +9,15 @@ namespace CSharpFundamentals.Tests
         public void GetAllFilesAndFolders_PredicateIsNull_OK()
         {
             const string path = "C:\\TEST";
-            EventNotifier eventNotifier = new EventNotifier();
             IPrinter printer = new SequencePrinter();
 
             string[] expected = {
+                "C:\\TEST\\BCL",
                 "C:\\TEST\\WPS Writer Document.wps",
                 "C:\\TEST\\XLSX Worksheet.xlsx",
                 "C:\\TEST\\Новая папка",
                 "C:\\TEST\\Новая папка (2)",
+                "C:\\TEST\\BCL\\NewFolder",
                 "C:\\TEST\\Новая папка\\XLSX Worksheet.xlsx",
                 "C:\\TEST\\Новая папка (2)\\BCL",
                 "C:\\TEST\\Новая папка (2)\\Новая папка",
@@ -24,7 +25,7 @@ namespace CSharpFundamentals.Tests
                 "C:\\TEST\\Новая папка (2)\\BCL\\NewFolder",
             };
 
-            var fileSystemVisitor = new FileSystemVisitor(eventNotifier);
+            var fileSystemVisitor = new FileSystemVisitor();
             foreach (var entry in fileSystemVisitor.VisitFolder(path))
             {
                 printer.Print(entry);
@@ -41,16 +42,17 @@ namespace CSharpFundamentals.Tests
             const string pattern = "Нова";
             var predicateGenerator = new PredicateGenerator(pattern);
             Func<string, bool> predicate = predicateGenerator.GetPredicate;
-            EventNotifier eventNotifier = new EventNotifier();
             IPrinter printer = new SequencePrinter();
 
             string[] expected = {
+                "C:\\TEST\\BCL",
                 "C:\\TEST\\WPS Writer Document.wps",
                 "C:\\TEST\\XLSX Worksheet.xlsx",
                 "C:\\TEST\\Новая папка",
                 "C:\\TEST\\Новая папка",
                 "C:\\TEST\\Новая папка (2)",
                 "C:\\TEST\\Новая папка (2)",
+                "C:\\TEST\\BCL\\NewFolder",
                 "C:\\TEST\\Новая папка\\XLSX Worksheet.xlsx",
                 "C:\\TEST\\Новая папка (2)\\BCL",
                 "C:\\TEST\\Новая папка (2)\\Новая папка",
@@ -59,7 +61,7 @@ namespace CSharpFundamentals.Tests
                 "C:\\TEST\\Новая папка (2)\\BCL\\NewFolder",
             };
 
-            var fileSystemVisitor = new FileSystemVisitor(predicate, eventNotifier);
+            var fileSystemVisitor = new FileSystemVisitor(predicate);
             foreach (var entry in fileSystemVisitor.VisitFolder(path))
             {
                 printer.Print(entry);
@@ -74,9 +76,8 @@ namespace CSharpFundamentals.Tests
         public void GetAllFilesAndFolders_DirectoryDoesNotExists_Return()
         {
             var path = "Invalid\\path";
-            EventNotifier eventNotifier = new EventNotifier();
             IPrinter printer = new SequencePrinter();
-            var fileSystemVisitor = new FileSystemVisitor(eventNotifier);
+            var fileSystemVisitor = new FileSystemVisitor();
             fileSystemVisitor.VisitFolder(path);
 
             string[] expected = { };

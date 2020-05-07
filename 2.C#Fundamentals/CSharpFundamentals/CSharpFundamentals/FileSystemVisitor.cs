@@ -6,27 +6,27 @@ namespace CSharpFundamentals
 {
     public class FileSystemVisitor
     {
+        public event EventHandler<ProcessEventArgs> Start;
+        public event EventHandler<ProcessEventArgs> Finish;
+        public event EventHandler<EntryFindedEventArgs> FileFinded;
+        public event EventHandler<EntryFindedEventArgs> DirectoryFinded;
+        public event EventHandler<EntryFindedEventArgs> FilteredFileFinded;
+        public event EventHandler<EntryFindedEventArgs> FilteredDirectoryFinded;
+
         private readonly Func<string, bool> _predicate;
-        private readonly EventNotifier _eventNotifier;
 
         private const string StartMessage = "Start searching";
         private const string FinishMessage = "Finish searching";
-        private const string FileFinded = "File finded";
-        private const string DirectoryFinded = "Directory finded";
-        private const string FilteredFileFinded = "Filtered file finded";
-        private const string FilteredDirectoryFinded = "Filtered directory finded";
+        private const string FileFindedMessage = "File finded";
+        private const string DirectoryFindedMessage = "Directory finded";
+        private const string FilteredFileFindedMessage = "Filtered file finded";
+        private const string FilteredDirectoryFindedMessage = "Filtered directory finded";
 
-        public bool isStop;
-        public bool isExclude;
+        public FileSystemVisitor() : this(null) { }
 
-        public FileSystemVisitor(EventNotifier eventNotifier) : this(null, eventNotifier) { }
-
-        public FileSystemVisitor(Func<string, bool> predicate, EventNotifier eventNotifier)
+        public FileSystemVisitor(Func<string, bool> predicate)
         {
             _predicate = predicate;
-            _eventNotifier = eventNotifier;
-            isStop = false;
-            isExclude = false;
         }
 
         public IEnumerable<string> VisitFolder(string path)
@@ -36,38 +36,53 @@ namespace CSharpFundamentals
                 yield break;
             }
 
-            _eventNotifier.Publish(StartMessage, isStop);
+            Publish(Start, new ProcessEventArgs(StartMessage));
 
-            foreach (var entry in GenerateFileSystemEntries(path))
+            foreach (var entry in GenerateFileSystemEntries(path, SearchAction.Continue))
             {
-                if (isStop)
+                var action = SearchAction.Continue;
+
+                if (File.GetAttributes(entry) == FileAttributes.Directory)
                 {
-                    _eventNotifier.Publish(StartMessage, isStop);
+                    action = HandleFindedEntry(DirectoryFinded, entry, DirectoryFindedMessage);
+                }
+                else
+                {
+                    action = HandleFindedEntry(FileFinded, entry, FileFindedMessage);
+                }
+
+                if (action == SearchAction.Stop)
+                {
                     yield break;
                 }
 
-                if (isExclude)
+                if (action == SearchAction.Exclude)
                 {
-                    _eventNotifier.Publish(StartMessage, isStop, isExclude);
-                    isExclude = false;
                     continue;
                 }
 
-                GenerateEvent(entry, DirectoryFinded, FileFinded);
                 yield return entry;
 
                 var filtered = TryFilter(entry, out var filteredEntry);
                 if (filtered)
                 {
-                    GenerateEvent(filteredEntry, FilteredDirectoryFinded, FilteredFileFinded);
+                    if (File.GetAttributes(filteredEntry) == FileAttributes.Directory)
+                    {
+                        action = HandleFindedEntry(FilteredDirectoryFinded, entry, FilteredDirectoryFindedMessage);
+                    }
+                    else
+                    {
+                        action = HandleFindedEntry(FilteredFileFinded, entry, FilteredFileFindedMessage);
+                    }
+
                     yield return entry;
                 }
             }
 
-            _eventNotifier.Publish(FinishMessage, isStop);
+            Publish(Finish, new ProcessEventArgs(FinishMessage));
         }
 
-        private IEnumerable<string> GenerateFileSystemEntries(string path)
+        private IEnumerable<string> GenerateFileSystemEntries(string path, SearchAction searchAction)
         {
             var entries = Directory.GetFileSystemEntries(path);
 
@@ -80,7 +95,7 @@ namespace CSharpFundamentals
             {
                 if (Directory.Exists(entry))
                 {
-                    foreach (var directoryEntry in GenerateFileSystemEntries(entry))
+                    foreach (var directoryEntry in GenerateFileSystemEntries(entry, searchAction))
                     {
                         yield return directoryEntry;
                     }
@@ -101,16 +116,21 @@ namespace CSharpFundamentals
             return false;
         }
 
-        private void GenerateEvent(string entry, string directoryMessage, string fileMessage)
+        private void Publish<TEventArgs>(EventHandler<TEventArgs> @event, TEventArgs e)
         {
-            if (File.GetAttributes(entry) == FileAttributes.Directory)
+            @event?.Invoke(this, e);
+        }
+
+        private SearchAction HandleFindedEntry(EventHandler<EntryFindedEventArgs> @event, string entry, string message)
+        {
+            var entryFindedEventArgs = new EntryFindedEventArgs(message, entry)
             {
-                _eventNotifier.Publish(directoryMessage);
-            }
-            else
-            {
-                _eventNotifier.Publish(fileMessage);
-            }
+                SearchAction = SearchAction.Continue
+            };
+
+            Publish(@event, entryFindedEventArgs);
+
+            return entryFindedEventArgs.SearchAction;
         }
     }
 }

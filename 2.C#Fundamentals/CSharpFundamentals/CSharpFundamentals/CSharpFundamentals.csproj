@@ -43,19 +43,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConsolePrinter.cs" />
-    <Compile Include="EventNotifier.cs" />
+    <Compile Include="Printers\ConsolePrinter.cs" />
+    <Compile Include="EventArgs\EntryFindedEventArgs.cs" />
     <Compile Include="FileSystemVisitor.cs" />
     <Compile Include="IPredicateGenerator.cs" />
-    <Compile Include="IPrinter.cs" />
-    <Compile Include="ProcessEventArgs.cs" />
+    <Compile Include="Printers\IPrinter.cs" />
+    <Compile Include="EventArgs\ProcessEventArgs.cs" />
     <Compile Include="PredicateGenerator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SequencePrinter.cs" />
+    <Compile Include="Models\SearchAction.cs" />
+    <Compile Include="Printers\SequencePrinter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
