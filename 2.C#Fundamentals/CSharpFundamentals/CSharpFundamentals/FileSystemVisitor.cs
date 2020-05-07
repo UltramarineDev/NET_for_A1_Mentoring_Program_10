@@ -38,7 +38,7 @@ namespace CSharpFundamentals
 
             Publish(Start, new ProcessEventArgs(StartMessage));
 
-            foreach (var entry in GenerateFileSystemEntries(path, SearchAction.Continue))
+            foreach (var entry in GenerateFileSystemEntries(path))
             {
                 var action = SearchAction.Continue;
 
@@ -82,7 +82,7 @@ namespace CSharpFundamentals
             Publish(Finish, new ProcessEventArgs(FinishMessage));
         }
 
-        private IEnumerable<string> GenerateFileSystemEntries(string path, SearchAction searchAction)
+        private IEnumerable<string> GenerateFileSystemEntries(string path)
         {
             var entries = Directory.GetFileSystemEntries(path);
 
@@ -95,7 +95,7 @@ namespace CSharpFundamentals
             {
                 if (Directory.Exists(entry))
                 {
-                    foreach (var directoryEntry in GenerateFileSystemEntries(entry, searchAction))
+                    foreach (var directoryEntry in GenerateFileSystemEntries(entry))
                     {
                         yield return directoryEntry;
                     }
