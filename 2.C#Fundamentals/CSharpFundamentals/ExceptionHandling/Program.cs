@@ -6,22 +6,33 @@ namespace ExceptionHandling
     class Program
     {
         private static List<string> lines = new List<string>();
+        private static bool isStop = false;
+
         static void Main(string[] args)
         {
             Console.CancelKeyPress += new ConsoleCancelEventHandler(ConsoleHandler);
             Console.WriteLine("Enter line (press 'ctrl+c' to stop).");
+            ReadLines();
+        }
 
+        private static void ReadLines()
+        {
             do
             {
                 var line = Console.ReadLine();
-                lines.Add(line);
-            } while (true);
+                if (line != null)
+                {
+                    lines.Add(line);
+                }
+
+            } while (!isStop);
         }
 
         private static void ConsoleHandler(object sender, ConsoleCancelEventArgs args)
         {
+            isStop = true;
             PrintFirstCharacters();
-            return;
+            args.Cancel = true;
         }
 
         private static void PrintFirstCharacters()
@@ -34,8 +45,14 @@ namespace ExceptionHandling
                 {
                     Console.WriteLine(line[0]);
                 }
+                catch (IndexOutOfRangeException e)
+                {
+                    Console.WriteLine("Can not process empty line.");
+                    continue;
+                }
                 catch (Exception e)
                 {
+                    Console.WriteLine("Exception occured during processing characters.");
                     continue;
                 }
             }

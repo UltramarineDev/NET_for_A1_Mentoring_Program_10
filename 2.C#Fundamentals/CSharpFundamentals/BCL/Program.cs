@@ -9,7 +9,7 @@ namespace BCL
         static void Main(string[] args)
         {
             Console.CancelKeyPress += new ConsoleCancelEventHandler(ConsoleHandler);
-            Console.WriteLine("(press 'ctrl+c' to stop).");
+            Console.WriteLine("Press 'ctrl+c' to stop.");
             DoWork();
         }
 
