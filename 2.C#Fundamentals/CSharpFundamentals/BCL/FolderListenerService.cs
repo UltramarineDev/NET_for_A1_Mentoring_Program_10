@@ -1,71 +1,71 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
-using System.Configuration;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
-using NLog;
 using messages = BCL.Resources.Messages;
 
 namespace BCL
 {
     public class FolderListenerService
     {
-        private readonly DirectoryCollection directoryCollection;
-        private readonly FileCollection fileCollection;
-        private readonly StartupSettingsConfigSection configSection;
-        private readonly Logger logger;
+        private readonly DirectoryCollection _directoryCollection;
+        private readonly RulesCollection _rulesCollection;
+        private readonly StartupSettingsConfigSection _configSection;
+        private readonly CultureInfo _culture;
 
         public FolderListenerService(StartupSettingsConfigSection configSection)
         {
-            //directories = ConfigurationManager.GetSection("listeningDirectories") as Directory[];
-            this.configSection = configSection;
-            directoryCollection = configSection.DirectoriesItems;
-            fileCollection = configSection.FilesItems;
-
-            logger = LogManager.GetCurrentClassLogger();
-
-            CultureInfo culture = new CultureInfo(configSection.DefaultCulture);
-            CultureInfo.DefaultThreadCurrentCulture = culture;
-            CultureInfo.DefaultThreadCurrentUICulture = culture;
+            _configSection = configSection;
+            _directoryCollection = _configSection.DirectoriesItems;
+            _rulesCollection = _configSection.RulesItems;
+            _culture = _configSection.Culture;
+            CultureInfo.DefaultThreadCurrentCulture = _culture;
+            CultureInfo.DefaultThreadCurrentUICulture = _culture;
         }
 
         public void Listen()
         {
-            using (FileSystemWatcher watcher = new FileSystemWatcher())
+            var watchers = new List<FileSystemWatcher>();
+            foreach (DirectoryElement dir in _directoryCollection)
             {
-                watcher.Path = directoryCollection[0].Path;//
-                watcher.Created += OnChanged;//
+                var watcher = new FileSystemWatcher
+                {
+                    Path = dir.Path,
+                    IncludeSubdirectories = false
+                };
+
                 watcher.EnableRaisingEvents = true;
-                Console.WriteLine("Press 'q' to quit the sample.");
-                while (Console.Read() != 'q') ;//ctrl+c
+                watcher.Created += OnChanged;
+                while (Console.Read() != 'q') ;
             }
         }
 
         private void OnChanged(object source, FileSystemEventArgs e)
         {
-            this.logger.Info(messages.FileCreated);
-            foreach (FileElement file in this.fileCollection)
+            var attributes = File.GetAttributes(e.FullPath);
+            if (attributes.HasFlag(FileAttributes.Directory))
             {
-                Regex regex = new Regex(file.Name);
+                return;
+            }
+
+            Logger.Log(messages.FileCreated);
+            foreach (RuleElement file in _rulesCollection)
+            {
+                Regex regex = new Regex(file.FileName);
                 if (regex.IsMatch(e.Name))
                 {
-                    logger.Info(messages.FileRuleFounded);
-                    if (!File.Exists(e.FullPath))
+                    Logger.Log(messages.FileRuleFounded);
+                    if (!File.Exists(file.Path))
                     {
-                        File.Copy(e.FullPath, file.Path);
+                        var newPath = Path.Combine(file.Path, e.FullPath.Split('\\').Last());
+                        File.Copy(e.FullPath, newPath);
                         File.Delete(e.FullPath);
-                        logger.Info(messages.FileMoved);
+                        Logger.Log(messages.FileMoved);
                         return;
                     }
                 }
-            }
-
-            logger.Info(messages.FileRuleNotFounded);
-            if (!File.Exists(e.FullPath))
-            {
-                File.Copy(e.FullPath, this.configSection.DefaultDestinationFolder);
-                logger.Info(messages.FileMoved);
-                File.Delete(e.FullPath);
             }
         }
     }
