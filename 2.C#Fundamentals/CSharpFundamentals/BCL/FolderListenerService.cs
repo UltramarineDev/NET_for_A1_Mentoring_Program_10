@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -14,6 +13,8 @@ namespace BCL
         private readonly RulesCollection _rulesCollection;
         private readonly StartupSettingsConfigSection _configSection;
         private readonly CultureInfo _culture;
+
+        private static bool isStop = false;
 
         public FolderListenerService(StartupSettingsConfigSection configSection)
         {
@@ -38,8 +39,13 @@ namespace BCL
 
                 watcher.EnableRaisingEvents = true;
                 watcher.Created += OnChanged;
-                while (Console.Read() != 'q') ;
+                while (!isStop);
             }
+        }
+
+        public void Cancel()
+        {
+            isStop = true;
         }
 
         private void OnChanged(object source, FileSystemEventArgs e)

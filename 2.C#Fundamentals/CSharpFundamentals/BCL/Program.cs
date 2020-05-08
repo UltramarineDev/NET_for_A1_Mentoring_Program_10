@@ -1,39 +1,31 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BCL
 {
     class Program
     {
+        static FolderListenerService service;
         static void Main(string[] args)
         {
-            //     < add key = "DefaultCulture" value = "en-EN" />
+            Console.CancelKeyPress += new ConsoleCancelEventHandler(ConsoleHandler);
+            Console.WriteLine("(press 'ctrl+c' to stop).");
+            DoWork();
+        }
 
-            //< add key = "FileNameTemplate" value = "[a-z0-9]+" />
+        private static void ConsoleHandler(object sender, ConsoleCancelEventArgs args)
+        {
+            args.Cancel = true;
+            service.Cancel();
+        }
 
-            //  < add key = "DefaultDestinationFolder" value = "C:\TEST\Новая папка(2)" />
-
-            //     < add key = "AddIndex" value = "true" />
-
-            //       < add key = "AddMigrationDate" value = "true" />
-
-            //Assembly mscorlib = Assembly.GetExecutingAssembly();
-            //foreach (Type type in mscorlib.GetTypes())
-            //{
-            //    Console.WriteLine(type.FullName);
-            //}
-
+        private static void DoWork()
+        {
             Configuration cfg = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
 
             var configSection = (StartupSettingsConfigSection)cfg.GetSection("StartupSettings");
-            //var service = new FolderListenerService(configSection);
-            //service.Listen();
-            var a = configSection.FilesItems[0].Name;
+            service = new FolderListenerService(configSection);
+            service.Listen();
         }
     }
 }
