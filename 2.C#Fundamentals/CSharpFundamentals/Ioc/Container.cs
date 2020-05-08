@@ -26,7 +26,7 @@ namespace Ioc
                 var exportAttributes = type.GetCustomAttributes<ExportAttribute>();
                 if (exportAttributes.Any())
                 {
-                    foreach(var attribute in exportAttributes)
+                    foreach (var attribute in exportAttributes)
                     {
                         _providers.Add(attribute.Contract ?? type, () => ResolveByType(type));
                     }
@@ -59,18 +59,31 @@ namespace Ioc
 
         public object Resolve(Type type)
         {
-            if (_providers.TryGetValue(type, out Func<object> provider))
+            if (!_providers.TryGetValue(type, out Func<object> provider))
             {
-                return provider();
+                return ResolveByType(type);
             }
 
-            return ResolveByType(type);
+            var instance = provider();
+            if (type.GetCustomAttribute<ImportConstructorAttribute>() != null)
+            {
+                return instance;
+            }
+
+            var properties = type.GetProperties().Where(p => p.GetCustomAttribute<ImportAttribute>() != null);
+            foreach (var property in properties)
+            {
+                var resolved = Resolve(property.PropertyType);
+                property.SetValue(instance, resolved);
+            }
+
+            return instance;
         }
 
         private object ResolveByType(Type type)
         {
             var constructor = type.GetConstructors().SingleOrDefault();
-            //if have not constructor but static property
+
             if (constructor != null)
             {
                 var arguments = constructor.GetParameters()

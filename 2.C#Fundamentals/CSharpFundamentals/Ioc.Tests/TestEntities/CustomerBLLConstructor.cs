@@ -4,7 +4,7 @@
     public class CustomerBLLConstructor
     {
         public ICustomerDAL Dal { get; set; }
-        public CustomerBLLConstructor(ICustomerDAL dal, Logger logger)
+        public CustomerBLLConstructor(ICustomerDAL dal)
         {
             Dal = dal;
         }
