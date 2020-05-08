@@ -15,7 +15,7 @@
    
 ### 3. Basic SQL
 
-   * [Basic SQL](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/tree/master/3.BasicSQL)
+   * Homework: [Basic SQL](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/tree/master/3.BasicSQL), Task: [Task](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/blob/master/3.BasicSQL/Task.pdf)
 
 ### 4. ADO.NET
    * Homework: [ADO.NET](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/tree/master/4.ADO.Net/ADONET), Task: [Task](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/blob/master/4.ADO.Net/Task.pdf)
