@@ -69,8 +69,17 @@ namespace SampleQueries
         {
             var customers = dataSource.Customers;
             var value = 5;
-            Console.WriteLine("the given value: {0}", value);
+            Console.WriteLine("Given value: {0}", value);
             var resultCustomers = customers.Where(customer => customer.Orders.Sum(order => order.Total) > value);
+            Console.WriteLine($"Count: {resultCustomers.Count()}");
+            foreach (var x in resultCustomers)
+            {
+                Console.WriteLine("Customer ID: {0}", x.CustomerID);
+            }
+
+            value = 2000;
+            Console.WriteLine("Given value: {0}", value);
+            Console.WriteLine($"Count: {resultCustomers.Count()}");
             foreach (var x in resultCustomers)
             {
                 Console.WriteLine("Customer ID: {0}", x.CustomerID);
@@ -100,23 +109,31 @@ namespace SampleQueries
 
         [Category("Homework")]
         [Title("Task 2_2")]
-        [Description("Gets a list of supplies for each customer located at the same country and city with GroupBy")]
+        [Description("Gets a list of supplies for each customer located at the same country and city with GroupJoin")]
         public void Linq02_2()
         {
             var customers = dataSource.Customers;
             var suppliers = dataSource.Suppliers;
-            foreach (var customer in customers)
-            {
-                Console.WriteLine("For customer {0}:", customer.CustomerID);
-                Console.WriteLine("located in {0}, {1}:", customer.Country, customer.City);
 
-                var resultSuppliers = suppliers.Where(x => x.Country == customer.Country && x.City == customer.City).GroupBy(x => x.Country);
-                foreach (var group in resultSuppliers)
+            var result = customers.GroupJoin(
+                                   suppliers,
+                                   c => new { c.Country, c.City },
+                                   s => new { s.Country, s.City },
+                                   (c, supl) => new
+                                   {
+                                       CustomerName = c.CustomerID,
+                                       c.Country,
+                                       c.City,
+                                       Suppliers = supl.Select(s => s.SupplierName)
+                                   });
+
+            foreach (var customer in result)
+            {
+                Console.WriteLine($"Customer {customer.CustomerName}, Country {customer.Country}, City {customer.City}");
+
+                foreach (var supplier in customer.Suppliers)
                 {
-                    foreach (var item in group)
-                    {
-                        Console.WriteLine("{0}, {1}, {2}", item.SupplierName, item.Country, item.City);
-                    }
+                    Console.WriteLine(supplier);
                 }
             }
         }
@@ -206,7 +223,7 @@ namespace SampleQueries
             var productgroups = products.GroupBy(p => p.Category)
                                         .Select(o => o.GroupBy(u => u.UnitsInStock)
                                         .Select(c => c.OrderBy(p => p.UnitPrice)));
-
+          
             foreach (var product in productgroups)
             {
                 foreach (var itemgroup in product)
@@ -270,7 +287,7 @@ namespace SampleQueries
 
             foreach (var avg in avgOrdersTotal)
             {
-                Console.WriteLine("City: {0}, Average total order price: {1:0.00}, Average amount: {2: 0.00}", 
+                Console.WriteLine("City: {0}, Average total order price: {1:0.00}, Average amount: {2: 0.00}",
                     avg.city, avg.avg, avg.avgAmount);
             }
         }
