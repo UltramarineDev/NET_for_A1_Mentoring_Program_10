@@ -33,7 +33,8 @@
 
 ### 8. Logging and monitoring
    
-   * Homework: [Logging and monitoring](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/tree/master/8.Logging_and_monitoring/Task/Task/MvcMusicStore), Task: [Task](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/blob/master/8.Logging_and_monitoring/Task.pdf)
+   * Homework: [Task 1,2](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/tree/master/8.Logging_and_monitoring/Task/Task/MvcMusicStore), Task: [Task](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/blob/master/8.Logging_and_monitoring/Task.pdf)
+   * Homework: [Task 3](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/blob/master/8.Logging_and_monitoring/Task/Task/MvcMusicStore/logs/%D0%B7%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%203.txt), Task:[Task](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/blob/master/8.Logging_and_monitoring/Task.pdf)
    
 ### 9. Caching
 
