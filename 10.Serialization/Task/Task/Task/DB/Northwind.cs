@@ -7,7 +7,7 @@ namespace Task.DB
 
 	public partial class Northwind : DbContext
 	{
-		public Northwind() : base("NorthwindS")
+		public Northwind() : base("Northwind")
         {
 		}
 

@@ -22,12 +22,50 @@ namespace Task
 
         public Type GetDataContractType(Type type)
         {
+            if (typeof(Order).IsAssignableFrom(type))
+            {
+                return typeof(OrderSurrogated);
+            }
+
+            if (typeof(Customer).IsAssignableFrom(type))
+            {
+                return typeof(CustomerSurrogated);
+            }
+
+            if (typeof(Employee).IsAssignableFrom(type))
+            {
+                return typeof(EmployeeSurrogated);
+            }
+
+            if (typeof(Order_Detail).IsAssignableFrom(type))
+            {
+                return typeof(OrderDetailSurrogated);
+            }
+
+            if (typeof(Shipper).IsAssignableFrom(type))
+            {
+                return typeof(ShipperSurrogated);
+            }
+
             return type;
         }
 
         public object GetDeserializedObject(object obj, Type targetType)
         {
-            return obj;
+            switch (obj)
+            {
+                case OrderSurrogated _:
+                    return GetOrderFromSurrogated(obj);
+                case CustomerSurrogated _:
+                    return GetCustomerFromSurrogated(obj);
+                case EmployeeSurrogated _:
+                    return GetEmployeeFromSurrogated(obj);
+                case OrderDetailSurrogated _:
+                    return GetOrderDetailFromSurrogated(obj);
+                case ShipperSurrogated _:
+                    return GetShipperFromSurrogated(obj);
+                default: return obj;
+            }
         }
 
         public void GetKnownCustomDataTypes(Collection<Type> customDataTypes)
@@ -38,9 +76,9 @@ namespace Task
         public object GetObjectToSerialize(object obj, Type targetType)
         {
             switch (obj)
-                {
+            {
                 case Order _:
-                    return GetOrderSurrogated(obj);
+                    return GetOrderSurrogated(obj, targetType);
                 case Customer _:
                     return GetCustomerSurrogated(obj);
                 case Employee _:
@@ -63,7 +101,7 @@ namespace Task
             throw new NotImplementedException();
         }
 
-        private OrderSurrogated GetOrderSurrogated(object obj)
+        private OrderSurrogated GetOrderSurrogated(object obj, Type targetType)
         {
             var orderSurrogated = new OrderSurrogated();
             orderSurrogated.OrderID = ((Order)obj).OrderID;
@@ -102,7 +140,7 @@ namespace Task
                 Country = ((Customer)obj).Country,
                 Phone = ((Customer)obj).Phone,
                 Fax = ((Customer)obj).Fax,
-                Orders = ((Customer)obj).Orders.ToList(),
+                Orders = null,
                 CustomerDemographics = ((Customer)obj).CustomerDemographics.ToList()
             };
 
@@ -131,10 +169,10 @@ namespace Task
                 Notes = ((Employee)obj).Notes,
                 ReportsTo = ((Employee)obj).ReportsTo,
                 PhotoPath = ((Employee)obj).PhotoPath,
-                Employees1 = ((Employee)obj).Employees1.ToList(),
-                Employee1 = ((Employee)obj).Employee1,
-                Orders = ((Employee)obj).Orders.ToList(),
-                Territories = ((Employee)obj).Territories.ToList()
+                Employees1 = null,
+                Employee1 = null,
+                Orders = null,
+                Territories = null
             };
 
             return employeeSurrogated;
@@ -149,8 +187,8 @@ namespace Task
                 UnitPrice = ((Order_Detail)obj).UnitPrice,
                 Quantity = ((Order_Detail)obj).Quantity,
                 Discount = ((Order_Detail)obj).Discount,
-                Order = ((Order_Detail)obj).Order,
-                Product = ((Order_Detail)obj).Product
+                Order = null,
+                Product = null
             };
 
             return orderDetailSurrogated;
@@ -163,10 +201,119 @@ namespace Task
                 ShipperID = ((Shipper)obj).ShipperID,
                 CompanyName = ((Shipper)obj).CompanyName,
                 Phone = ((Shipper)obj).Phone,
-                Orders = ((Shipper)obj).Orders.ToList()
+                Orders = null
             };
 
             return shipperSurrogated;
+        }
+
+        private Order GetOrderFromSurrogated(object obj)
+        {
+            var order = new Order
+            {
+                OrderID = ((OrderSurrogated)obj).OrderID,
+                CustomerID = ((OrderSurrogated)obj).CustomerID,
+                EmployeeID = ((OrderSurrogated)obj).EmployeeID,
+                OrderDate = ((OrderSurrogated)obj).OrderDate,
+                RequiredDate = ((OrderSurrogated)obj).RequiredDate,
+                ShippedDate = ((OrderSurrogated)obj).ShippedDate,
+                ShipVia = ((OrderSurrogated)obj).ShipVia,
+                Freight = ((OrderSurrogated)obj).Freight,
+                ShipName = ((OrderSurrogated)obj).ShipName,
+                ShipAddress = ((OrderSurrogated)obj).ShipAddress,
+                ShipCity = ((OrderSurrogated)obj).ShipCity,
+                ShipRegion = ((OrderSurrogated)obj).ShipRegion,
+                ShipPostalCode = ((OrderSurrogated)obj).ShipPostalCode,
+                ShipCountry = ((OrderSurrogated)obj).ShipCountry,
+                Customer = ((OrderSurrogated)obj).Customer,
+                Employee = ((OrderSurrogated)obj).Employee,
+                Order_Details = ((OrderSurrogated)obj).Order_Details,
+                Shipper = ((OrderSurrogated)obj).Shipper
+            };
+
+            return order;
+        }
+
+        private Customer GetCustomerFromSurrogated(object obj)
+        {
+            var customer = new Customer
+            {
+                CustomerID = ((CustomerSurrogated)obj).CustomerID,
+                CompanyName = ((CustomerSurrogated)obj).CompanyName,
+                ContactName = ((CustomerSurrogated)obj).ContactName,
+                ContactTitle = ((CustomerSurrogated)obj).ContactTitle,
+                Address = ((CustomerSurrogated)obj).Address,
+                City = ((CustomerSurrogated)obj).City,
+                Region = ((CustomerSurrogated)obj).Region,
+                PostalCode = ((CustomerSurrogated)obj).PostalCode,
+                Country = ((CustomerSurrogated)obj).Country,
+                Phone = ((CustomerSurrogated)obj).Phone,
+                Fax = ((CustomerSurrogated)obj).Fax,
+                Orders = null,
+                CustomerDemographics = ((CustomerSurrogated)obj).CustomerDemographics.ToList()
+            };
+
+            return customer;
+        }
+
+        private Employee GetEmployeeFromSurrogated(object obj)
+        {
+            var employee = new Employee
+            {
+                EmployeeID = ((EmployeeSurrogated)obj).EmployeeID,
+                LastName = ((EmployeeSurrogated)obj).LastName,
+                FirstName = ((EmployeeSurrogated)obj).FirstName,
+                Title = ((EmployeeSurrogated)obj).Title,
+                TitleOfCourtesy = ((EmployeeSurrogated)obj).TitleOfCourtesy,
+                BirthDate = ((EmployeeSurrogated)obj).BirthDate,
+                HireDate = ((EmployeeSurrogated)obj).HireDate,
+                Address = ((EmployeeSurrogated)obj).Address,
+                City = ((EmployeeSurrogated)obj).City,
+                Region = ((EmployeeSurrogated)obj).Region,
+                PostalCode = ((EmployeeSurrogated)obj).PostalCode,
+                Country = ((EmployeeSurrogated)obj).Country,
+                HomePhone = ((EmployeeSurrogated)obj).HomePhone,
+                Extension = ((EmployeeSurrogated)obj).Extension,
+                Photo = ((EmployeeSurrogated)obj).Photo,
+                Notes = ((EmployeeSurrogated)obj).Notes,
+                ReportsTo = ((EmployeeSurrogated)obj).ReportsTo,
+                PhotoPath = ((EmployeeSurrogated)obj).PhotoPath,
+                Employees1 = null,
+                Employee1 = null,
+                Orders = null,
+                Territories = null
+            };
+
+            return employee;
+        }
+
+        private Order_Detail GetOrderDetailFromSurrogated(object obj)
+        {
+            var orderDetail = new Order_Detail
+            {
+                OrderID = ((OrderDetailSurrogated)obj).OrderID,
+                ProductID = ((OrderDetailSurrogated)obj).ProductID,
+                UnitPrice = ((OrderDetailSurrogated)obj).UnitPrice,
+                Quantity = ((OrderDetailSurrogated)obj).Quantity,
+                Discount = ((OrderDetailSurrogated)obj).Discount,
+                Order = null,
+                Product = null
+            };
+
+            return orderDetail;
+        }
+
+        private Shipper GetShipperFromSurrogated(object obj)
+        {
+            var shipper = new Shipper
+            {
+                ShipperID = ((ShipperSurrogated)obj).ShipperID,
+                CompanyName = ((ShipperSurrogated)obj).CompanyName,
+                Phone = ((ShipperSurrogated)obj).Phone,
+                Orders = null
+            };
+
+            return shipper;
         }
     }
 }

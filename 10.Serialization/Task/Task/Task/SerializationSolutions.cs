@@ -5,6 +5,7 @@ using Task.TestHelpers;
 using System.Runtime.Serialization;
 using System.Linq;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Task
 {
@@ -66,8 +67,15 @@ namespace Task
                 DataContractSurrogate = new DataContractSurrogate()
             });
 
+            var orders = dbContext.Orders.ToList().Take(3);
+
+            using (FileStream fs = File.Open("test" + typeof(IEnumerable<Order>).Name + ".xml", FileMode.Create))
+            {
+                Console.WriteLine("Testing for type: {0}", typeof(IEnumerable<Order>));
+                serializer.WriteObject(fs, orders);
+            }
+
             var tester = new XmlDataContractSerializerTester<IEnumerable<Order>>(serializer, true);
-			var orders = dbContext.Orders.ToList();
 
 			tester.SerializeAndDeserialize(orders);
 		}
