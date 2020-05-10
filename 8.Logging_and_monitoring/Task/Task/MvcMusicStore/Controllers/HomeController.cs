@@ -11,10 +11,12 @@ namespace MvcMusicStore.Controllers
     {
         private readonly MusicStoreEntities _storeContext = new MusicStoreEntities();
         private readonly ILogger _logger;
+        private readonly Counters _counters;
 
-        public HomeController(ILogger logger)
+        public HomeController(ILogger logger, Counters counters)
         {
             _logger = logger;
+            _counters = counters;
         }
 
         // GET: /Home/
@@ -22,7 +24,7 @@ namespace MvcMusicStore.Controllers
         {
             _logger.Debug("Enter to home page");
 
-            Counters.GoToHome.Increment();
+            _counters.GoToHome.Increment();
 
             return View(await _storeContext.Albums
                 .OrderByDescending(a => a.OrderDetails.Count())
