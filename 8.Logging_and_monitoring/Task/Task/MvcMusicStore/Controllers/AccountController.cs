@@ -13,6 +13,7 @@ namespace MvcMusicStore.Controllers
     public class AccountController : Controller
     {
         private readonly ILogger _logger;
+        private readonly Counters _counters;
 
         public enum ManageMessageId
         {
@@ -26,10 +27,11 @@ namespace MvcMusicStore.Controllers
 
         private UserManager<ApplicationUser> _userManager;
 
-        public AccountController(ILogger logger)
+        public AccountController(ILogger logger, Counters counters)
             : this(new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
         {
             _logger = logger;
+            _counters = counters;
         }
 
         public AccountController(UserManager<ApplicationUser> userManager)
@@ -75,7 +77,7 @@ namespace MvcMusicStore.Controllers
                 if (user != null)
                 {
                     await SignInAsync(user, model.RememberMe);
-                    Counters.LogIn.Increment();
+                    _counters.LogIn.Increment();
                     return RedirectToLocal(returnUrl);
                 }
 
@@ -324,7 +326,7 @@ namespace MvcMusicStore.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut();
-            Counters.LogOff.Increment();
+            _counters.LogOff.Increment();
             return RedirectToAction("Index", "Home");
         }
 
