@@ -79,7 +79,9 @@
     <Compile Include="DB\Supplier.cs" />
     <Compile Include="DB\Territory.cs" />
     <Compile Include="Surrogates\EmployeeSurrogated.cs" />
+    <Compile Include="Surrogates\OrderDetailSerializationSurrogate.cs" />
     <Compile Include="Surrogates\OrderDetailSurrogated.cs" />
+    <Compile Include="Surrogates\OrderDetailSurrogateSelector.cs" />
     <Compile Include="Surrogates\OrderSurrogated.cs" />
     <Compile Include="SerializationSolutions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
