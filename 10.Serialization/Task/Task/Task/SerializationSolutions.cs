@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System;
 using Task.Surrogates;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Task
 {
@@ -38,13 +39,23 @@ namespace Task
 		public void ISerializable()
 		{
 			dbContext.Configuration.ProxyCreationEnabled = false;
+            var serializer = new NetDataContractSerializer(new StreamingContext(StreamingContextStates.All, dbContext));
+            var products = dbContext.Products.Include("Supplier").Include("Category").ToList();
 
-			var tester = new XmlDataContractSerializerTester<IEnumerable<Product>>(new NetDataContractSerializer(), true);
-			var products = dbContext.Products.ToList();
+            IFormatter formatter = new BinaryFormatter();
+            using (FileStream fs = File.Open("test3" + typeof(IEnumerable<Product>).Name + ".xml", FileMode.Create))
+            {
+                formatter.Serialize(fs, products);
+            }
 
+            using (FileStream fs = File.Open("test3" + typeof(IEnumerable<Product>).Name + ".xml", FileMode.Open))
+            {
+                var p = (IEnumerable<Product>)formatter.Deserialize(fs);
+            }
+
+            var tester = new XmlDataContractSerializerTester<IEnumerable<Product>>(serializer, true);
 			tester.SerializeAndDeserialize(products);
 		}
-
 
 		[TestMethod]
 		public void ISerializationSurrogate()

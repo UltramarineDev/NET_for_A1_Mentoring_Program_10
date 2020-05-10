@@ -5,14 +5,50 @@ namespace Task.DB
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using System.Runtime.Serialization;
 
-    public partial class Product
+    [Serializable]
+    public partial class Product : ISerializable
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Product()
         {
             Order_Details = new HashSet<Order_Detail>();
         }
+
+        public Product(SerializationInfo info, StreamingContext context)
+        {
+            this.ProductID = (int)info.GetValue("ProductID", typeof(int));
+            this.ProductName = (string)info.GetValue("ProductName", typeof(string));
+            this.SupplierID = (int?)info.GetValue("SupplierID", typeof(int?));
+            this.CategoryID = (int?)info.GetValue("CategoryID", typeof(int?));
+            this.QuantityPerUnit = (string)info.GetValue("QuantityPerUnit", typeof(string));
+            this.UnitPrice = (decimal)info.GetValue("UnitPrice", typeof(decimal));
+            this.UnitsInStock = (short?)info.GetValue("UnitsInStock", typeof(short?));
+            this.UnitsOnOrder = (short?)info.GetValue("UnitsOnOrder", typeof(short?));
+            this.ReorderLevel = (short?)info.GetValue("ReorderLevel", typeof(short?));
+            this.Discontinued = (bool)info.GetValue("Discontinued", typeof(bool));
+            this.Category = (Category)info.GetValue("Category", typeof(Category));
+            this.Supplier = (Supplier)info.GetValue("Supplier", typeof(Supplier));
+        }
+
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            info.AddValue("ProductID", this.ProductID);
+            info.AddValue("ProductName", this.ProductName);
+            info.AddValue("SupplierID", this.SupplierID);
+            info.AddValue("CategoryID", this.CategoryID);
+            info.AddValue("QuantityPerUnit", this.QuantityPerUnit);
+            info.AddValue("UnitPrice", this.UnitPrice);
+            info.AddValue("UnitsInStock", this.UnitsInStock);
+            info.AddValue("UnitsOnOrder", this.UnitsOnOrder);
+            info.AddValue("ReorderLevel", this.ReorderLevel);
+            info.AddValue("Discontinued", this.Discontinued);
+            info.AddValue("Category", this.Category);
+            info.AddValue("Order_Details", this.Order_Details);
+            info.AddValue("Supplier", this.Supplier);
+        }
+
 
         public int ProductID { get; set; }
 
