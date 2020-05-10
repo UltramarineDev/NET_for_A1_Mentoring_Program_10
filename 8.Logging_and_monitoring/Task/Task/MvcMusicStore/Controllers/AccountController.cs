@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
+using MvcMusicStore.Infrastructure;
 using MvcMusicStore.Models;
 
 namespace MvcMusicStore.Controllers
@@ -74,7 +75,7 @@ namespace MvcMusicStore.Controllers
                 if (user != null)
                 {
                     await SignInAsync(user, model.RememberMe);
-
+                    Counters.LogIn.Increment();
                     return RedirectToLocal(returnUrl);
                 }
 
@@ -323,7 +324,7 @@ namespace MvcMusicStore.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut();
-
+            Counters.LogOff.Increment();
             return RedirectToAction("Index", "Home");
         }
 

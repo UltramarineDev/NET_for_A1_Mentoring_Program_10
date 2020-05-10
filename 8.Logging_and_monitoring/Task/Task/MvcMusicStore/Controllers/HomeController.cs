@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using MvcMusicStore.Infrastructure;
 using MvcMusicStore.Models;
-using PerformanceCounterHelper;
 
 namespace MvcMusicStore.Controllers
 {
@@ -12,12 +11,10 @@ namespace MvcMusicStore.Controllers
     {
         private readonly MusicStoreEntities _storeContext = new MusicStoreEntities();
         private readonly ILogger _logger;
-        private static CounterHelper<Counters> _counterHelper;
 
         public HomeController(ILogger logger)
         {
             _logger = logger;
-            _counterHelper = PerformanceHelper.CreateCounterHelper<Counters>("Test project");
         }
 
         // GET: /Home/
@@ -25,7 +22,7 @@ namespace MvcMusicStore.Controllers
         {
             _logger.Debug("Enter to home page");
 
-           _counterHelper.Increment(Counters.GoToHome);
+            Counters.GoToHome.Increment();
 
             return View(await _storeContext.Albums
                 .OrderByDescending(a => a.OrderDetails.Count())

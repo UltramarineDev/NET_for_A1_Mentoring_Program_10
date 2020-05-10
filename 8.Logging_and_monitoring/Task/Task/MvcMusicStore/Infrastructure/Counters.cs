@@ -1,17 +1,11 @@
-﻿using PerformanceCounterHelper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Diagnostics;
 
 namespace MvcMusicStore.Infrastructure
 {
-    [PerformanceCounterCategory("MvcMusicStore", 
-        System.Diagnostics.PerformanceCounterCategoryType.MultiInstance, 
-        "MvcMusicStore")]
-    public enum Counters
+    public static class Counters
     {
-        [PerformanceCounter("Go to home counter", "Go to home", System.Diagnostics.PerformanceCounterType.NumberOfItems32)]
-        GoToHome
+        public static PerformanceCounter GoToHome { get; set; }
+        public static PerformanceCounter LogIn { get; set; }
+        public static PerformanceCounter LogOff { get; set; }
     }
 }
