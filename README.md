@@ -15,7 +15,10 @@
    
 ### 3. Basic SQL
 
-   * Homework: [Basic SQL](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/tree/master/3.BasicSQL), Task: [Task](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/blob/master/3.BasicSQL/Task.pdf)
+   * Homework: [Task 1, 2](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/blob/master/3.BasicSQL/Homework.sql), Task: [Task](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/blob/master/3.BasicSQL/Task.pdf)
+   * Homework: [Task 3.1](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/tree/master/3.BasicSQL/Task3.1), Task: [Task](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/blob/master/3.BasicSQL/Task.pdf)
+   * Homework: [Task 3.2](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/tree/master/3.BasicSQL/Task3), Task: [Task](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/blob/master/3.BasicSQL/Task.pdf)
+   * Homework: [Task 3.3](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/tree/master/3.BasicSQL/Task3/Task3-v1.3/Scripts), Task: [Task](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/blob/master/3.BasicSQL/Task.pdf)
 
 ### 4. ADO.NET
    * Homework: [ADO.NET](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/tree/master/4.ADO.Net/ADONET), Task: [Task](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/blob/master/4.ADO.Net/Task.pdf)
