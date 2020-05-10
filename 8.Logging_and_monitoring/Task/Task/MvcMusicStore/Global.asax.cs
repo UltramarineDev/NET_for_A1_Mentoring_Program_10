@@ -15,7 +15,8 @@ namespace MvcMusicStore
         {
             var builder = new ContainerBuilder();
             builder.RegisterControllers(typeof(HomeController).Assembly);
-            builder.RegisterType<MvcMusicLogger>().As<ILogger>();
+            builder.RegisterType<Counters>().SingleInstance();
+            builder.RegisterType<MvcMusicLogger>().As<ILogger>().SingleInstance();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(builder.Build()));
 
             AreaRegistration.RegisterAllAreas();
@@ -26,11 +27,7 @@ namespace MvcMusicStore
             var logger = DependencyResolver.Current.GetService(typeof(ILogger)) as ILogger;
             logger.Info("Application started");
 
-            if (!IsCategoryexists())
-            {
-                SetupCategory();
-                CreateCounters();
-            }
+            if (CategoryNotExists()) SetupCategory();
         }
 
         protected void Application_Error()
@@ -40,14 +37,14 @@ namespace MvcMusicStore
             logger.Error(ex.ToString());
         }
 
-        private static bool IsCategoryexists()
-            => PerformanceCounterCategory.Exists("GoToHomeNumberCategory");
+        private static bool CategoryNotExists()
+            => !PerformanceCounterCategory.Exists("MvcMusicStoreCategory");
 
         private static void SetupCategory()
         {
-            CounterCreationDataCollection counterDataCollection = new CounterCreationDataCollection();
+            var counterDataCollection = new CounterCreationDataCollection();
 
-            CounterCreationData visitHomeNumber = new CounterCreationData
+            var visitHomeNumber = new CounterCreationData
             {
                 CounterType = PerformanceCounterType.NumberOfItems64,
                 CounterName = "NumberOfGoingToHome"
@@ -55,7 +52,7 @@ namespace MvcMusicStore
 
             counterDataCollection.Add(visitHomeNumber);
 
-            CounterCreationData logInNumber = new CounterCreationData
+            var logInNumber = new CounterCreationData
             {
                 CounterType = PerformanceCounterType.NumberOfItems64,
                 CounterName = "logInNumber"
@@ -63,7 +60,7 @@ namespace MvcMusicStore
 
             counterDataCollection.Add(logInNumber);
 
-            CounterCreationData logOffNumber = new CounterCreationData
+            var logOffNumber = new CounterCreationData
             {
                 CounterType = PerformanceCounterType.NumberOfItems64,
                 CounterName = "logOffNumber"
@@ -73,19 +70,6 @@ namespace MvcMusicStore
 
             PerformanceCounterCategory.Create("MvcMusicStoreCategory", "MvcMusicStore category.",
                 PerformanceCounterCategoryType.SingleInstance, counterDataCollection);
-        }
-
-        private static void CreateCounters()
-        {
-            Counters.GoToHome = new PerformanceCounter("MvcMusicStoreCategory", "NumberOfGoingToHome", false);
-
-            Counters.LogIn = new PerformanceCounter("MvcMusicStoreCategory", "logInNumber", false);
-
-            Counters.LogOff = new PerformanceCounter("MvcMusicStoreCategory", "logOffNumber", false);
-
-            Counters.GoToHome.RawValue = 0;
-            Counters.LogIn.RawValue = 0;
-            Counters.LogOff.RawValue = 0;
         }
     }
 }
