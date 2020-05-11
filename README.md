@@ -31,6 +31,9 @@
 
    * Homework: [LINQ](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/blob/master/6.LINQ/Task/LinqSamples.cs), Task: [Task](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/blob/master/6.LINQ/Task.pdf)
 
+### 7. HTTP Fundamentals
+   * Homework: [Task 1](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/tree/master/7.HTTP_fundamentals/HTTPfundamentals), Task: [Task 1](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/blob/master/7.HTTP_fundamentals/Task%201.pdf)
+   
 ### 8. Logging and monitoring
    
    * Homework: [Task 1,2](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/tree/master/8.Logging_and_monitoring/Task/Task/MvcMusicStore), Task: [Task](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/blob/master/8.Logging_and_monitoring/Task.pdf)
