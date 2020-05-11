@@ -4,6 +4,7 @@ namespace Task.DB
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Data.Entity.Infrastructure;
     using System.Data.Entity.Spatial;
     using System.Runtime.Serialization;
 
@@ -47,6 +48,11 @@ namespace Task.DB
             info.AddValue("Category", this.Category);
             info.AddValue("Order_Details", this.Order_Details);
             info.AddValue("Supplier", this.Supplier);
+
+            IObjectContextAdapter objectContext = (context.Context as IObjectContextAdapter).ObjectContext;
+            objectContext.ObjectContext.LoadProperty(this, p => p.Supplier);
+            objectContext.ObjectContext.LoadProperty(this, p => p.Category);
+            objectContext.ObjectContext.LoadProperty(this, p => p.Order_Details);
         }
 
 

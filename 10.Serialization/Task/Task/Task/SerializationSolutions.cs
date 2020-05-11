@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System;
 using Task.Surrogates;
-using System.Runtime.Serialization.Formatters.Binary;
+using System.Data.Entity.Infrastructure;
 
 namespace Task
 {
@@ -26,9 +26,17 @@ namespace Task
 		public void SerializationCallbacks()
 		{
 			dbContext.Configuration.ProxyCreationEnabled = false;
+            var serializer = new NetDataContractSerializer(new StreamingContext(
+                StreamingContextStates.All, dbContext as IObjectContextAdapter));
 
-			var tester = new XmlDataContractSerializerTester<IEnumerable<Category>>(new NetDataContractSerializer(), true);
-			var categories = dbContext.Categories.ToList();
+            var categories = dbContext.Categories.ToList();
+
+            using (FileStream fs = File.Open("test4" + typeof(IEnumerable<Category>).Name + ".xml", FileMode.Create))
+            {
+                Console.WriteLine("Testing for type: {0}", typeof(IEnumerable<Category>));
+                serializer.WriteObject(fs, categories);
+            }
+            var tester = new XmlDataContractSerializerTester<IEnumerable<Category>>(serializer, true);
 
 			var c = categories.First();
 
@@ -39,18 +47,13 @@ namespace Task
 		public void ISerializable()
 		{
 			dbContext.Configuration.ProxyCreationEnabled = false;
-            var serializer = new NetDataContractSerializer(new StreamingContext(StreamingContextStates.All, dbContext));
-            var products = dbContext.Products.Include("Supplier").Include("Category").ToList();
+            var serializer = new NetDataContractSerializer(
+                new StreamingContext(StreamingContextStates.All, dbContext as IObjectContextAdapter));
+            var products = dbContext.Products.ToList();
 
-            IFormatter formatter = new BinaryFormatter();
             using (FileStream fs = File.Open("test3" + typeof(IEnumerable<Product>).Name + ".xml", FileMode.Create))
             {
-                formatter.Serialize(fs, products);
-            }
-
-            using (FileStream fs = File.Open("test3" + typeof(IEnumerable<Product>).Name + ".xml", FileMode.Open))
-            {
-                var p = (IEnumerable<Product>)formatter.Deserialize(fs);
+                serializer.WriteObject(fs, products);
             }
 
             var tester = new XmlDataContractSerializerTester<IEnumerable<Product>>(serializer, true);
