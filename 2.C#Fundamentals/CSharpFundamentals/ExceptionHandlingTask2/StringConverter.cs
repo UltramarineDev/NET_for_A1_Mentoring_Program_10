@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics.Contracts;
 
 namespace ExceptionHandlingTask2
 {
@@ -7,8 +6,10 @@ namespace ExceptionHandlingTask2
     {
         public int ConvertToInteger(string input)
         {
-            Contract.Requires<ArgumentNullException>(input != null || input != "" || input != " ",
-                "Input can not be null, empty or consists of only whitespace");
+            if (string.IsNullOrEmpty(input) || string.IsNullOrWhiteSpace(input))
+            {
+                throw new ArgumentNullException("Input can not be null, empty or consists of only whitespace");
+            }
 
             return GetIntegerFromString(input);
         }
