@@ -6,9 +6,9 @@ namespace ExceptionHandlingTask2
     {
         public int ConvertToInteger(string input)
         {
-            if (string.IsNullOrEmpty(input) || string.IsNullOrWhiteSpace(input))
+            if (string.IsNullOrEmpty(input))
             {
-                throw new ArgumentNullException("Input can not be null, empty or consists of only whitespace");
+                throw new ArgumentNullException(nameof(input), "Input can not be null or empty.");
             }
 
             return GetIntegerFromString(input);

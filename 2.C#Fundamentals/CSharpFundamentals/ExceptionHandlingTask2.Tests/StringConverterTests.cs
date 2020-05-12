@@ -31,9 +31,9 @@ namespace ExceptionHandlingTask2.Tests
         }
 
         [Test]
-        public void ConvertToInteger_InputIsWhiteSpace_ThrowArgumentNullException()
+        public void ConvertToInteger_InputIsWhiteSpace_ThrowArgumentException()
         {
-            Assert.Throws<ArgumentNullException>(() => converter.ConvertToInteger(" "));
+            Assert.Throws<ArgumentException>(() => converter.ConvertToInteger(" "));
         }
 
         [Test]
