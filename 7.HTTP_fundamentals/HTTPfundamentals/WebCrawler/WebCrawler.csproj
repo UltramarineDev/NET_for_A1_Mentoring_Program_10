@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppRestrictions.cs" />
+    <Compile Include="ConsoleLogger.cs" />
     <Compile Include="Crawler.cs" />
     <Compile Include="DomainTransitionOptions.cs" />
     <Compile Include="LocalRecorder.cs" />
