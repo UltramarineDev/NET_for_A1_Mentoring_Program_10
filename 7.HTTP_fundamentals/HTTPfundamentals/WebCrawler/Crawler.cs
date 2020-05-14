@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using HtmlAgilityPack;
 
@@ -31,12 +30,12 @@ namespace WebCrawler
         public async Task DowloadSiteFromUrl(string url, string path)
         {
             ValidateRestrictions();
-            _baseUri = _baseUri ?? new Uri(url);//think
+            _baseUri = new Uri(url);
 
-            await ProcessUrl(_baseUri, path);
+            await ProcessUri(_baseUri, path);
         }
 
-        private async Task ProcessUrl(Uri uri, string path, int depthLevel = 0)
+        private async Task ProcessUri(Uri uri, string path, int depthLevel = 0)
         {
             _logger.Log("Start uri processng...");
             _logger.Log($"Got base uri {uri}, root path: {path}, depth level: {depthLevel}");
@@ -75,20 +74,24 @@ namespace WebCrawler
             string responseBody = response.Content.ReadAsStringAsync().Result;
             response.EnsureSuccessStatusCode();
 
+            _visitedUri.Add(uri);
+
             var document = new HtmlDocument();
             document.LoadHtml(responseBody);
-            _recorder.RecordHtml(path, uri, document);
+            var memoryStream = new MemoryStream();
+            document.Save(memoryStream);
+            memoryStream.Seek(0, SeekOrigin.Begin);
 
-            var links = document.DocumentNode.Descendants().SelectMany(d => d.Attributes.Where(atr => atr.Name == "href"));
+            _recorder.RecordHtml(path, _baseUri, uri, document);
+
+            var links = document.DocumentNode.Descendants().SelectMany(d => d.Attributes.Where(atr => atr.Name == "href" || atr.Name == "src"));
             foreach (var link in links)
             {
-                await ProcessUrl(new Uri(_baseUri + link.Value), path, depthLevel++);
+                await ProcessUri(new Uri(_baseUri + link.Value), path, depthLevel + 1);
             }
-
-            _visitedUri.Add(uri);
         }
 
-        private static void ValidateRestrictions()
+        private void ValidateRestrictions()
         {
             if (_appRestrictions.LinkAnalysisDepth < 0)
             {
@@ -108,7 +111,7 @@ namespace WebCrawler
             string responseBody = response.Content.ReadAsStringAsync().Result;
             response.EnsureSuccessStatusCode();
 
-            _recorder.RecordResouce(path, uri);
+            _recorder.RecordResouce(path, _baseUri, uri);
         }
 
         private bool SatisfyDomainTransitionRestriction(Uri uri)
