@@ -19,7 +19,7 @@ namespace WebCrawler
             {
                 pathToDirectory = GetFilteredPath(path, uri);
             }
-            var name = document.DocumentNode.Descendants("title").FirstOrDefault().InnerText + ".html";//
+            var name = document.DocumentNode.Descendants("title").FirstOrDefault().InnerText + ".html";
             var fileteredNme = GetStringWithoutInvalidCharacters(name);
             var filePath = Path.Combine(pathToDirectory, fileteredNme);
 
