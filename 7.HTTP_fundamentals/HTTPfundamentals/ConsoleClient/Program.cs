@@ -23,7 +23,7 @@ namespace ConsoleClient
             string path = Uri.UnescapeDataString(uri.Path);
             var assemblyDirectoryPath = Path.GetDirectoryName(path);
 
-            await crawler.DowloadSiteFromUrl(url, assemblyDirectoryPath);
+            await crawler.DowloadSiteFromUrl(url3, assemblyDirectoryPath);
         }
     }
 }

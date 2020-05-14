@@ -125,8 +125,5 @@ namespace WebCrawler
                 default: return false;
             }
         }
-
-        private string GetStringWithoutInvalidCharacters(string input)
-            => Regex.Replace(input ?? string.Empty, "https|http|[<>:;\"|?*]|//", string.Empty);
     }
 }

@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using HtmlAgilityPack;
-
 
 namespace WebCrawler
 {
@@ -51,18 +52,38 @@ namespace WebCrawler
             var directoryPath = Path.GetDirectoryName(filePath);
             Directory.CreateDirectory(directoryPath);
 
-            using (var memStream = new MemoryStream())
+            var image = DownloadImageFromUrl(uri.AbsoluteUri);
+            var imgFormat = GetImageFormat(uri);
+           
+            if (image != null)
             {
-                memStream.Seek(0, SeekOrigin.Begin);
-                using (var fs = new FileStream(filePath, FileMode.OpenOrCreate))
-                {
-                    memStream.CopyTo(fs);
-                    fs.Flush();
-                }
+                image.Save(filePath, imgFormat);
             }
         }
 
-        private string GetSubUri(Uri baseUri, Uri uri) 
+        private Image DownloadImageFromUrl(string imageUrl)
+        {
+            Image image;
+            try
+            {
+                var webRequest = System.Net.WebRequest.Create(imageUrl);
+                webRequest.Timeout = 30000;
+
+                var webResponse = webRequest.GetResponse();
+                var stream = webResponse.GetResponseStream();
+                image = Image.FromStream(stream);
+
+                webResponse.Close();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+
+            return image;
+        }
+
+        private string GetSubUri(Uri baseUri, Uri uri)
             => new string(uri.AbsoluteUri.Except(baseUri.AbsoluteUri).ToArray<char>());
 
         private string GetStringWithoutInvalidCharacters(string input)
@@ -71,5 +92,22 @@ namespace WebCrawler
         private string GetFilteredPath(string path, Uri uri)
             => string.Join(string.Empty, Path.Combine(path, uri.Host) +
                 GetStringWithoutInvalidCharacters(uri.LocalPath).Replace("/", @"\"));
+
+        private ImageFormat GetImageFormat(Uri uri)
+        {
+            var imgFormat = ImageFormat.Png;
+
+            switch (uri.Segments.Last().Split('.')[1])
+            {
+                case "jpeg":
+                    imgFormat = ImageFormat.Jpeg;
+                    break;
+                case "gif":
+                    imgFormat = ImageFormat.Gif;
+                    break;
+            }
+
+            return imgFormat;
+        }
     }
 }
