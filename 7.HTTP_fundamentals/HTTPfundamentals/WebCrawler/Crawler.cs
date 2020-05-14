@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using HtmlAgilityPack;
 
@@ -47,7 +48,7 @@ namespace WebCrawler
             }
 
             var headResponseMessage = _client.SendAsync(new HttpRequestMessage(HttpMethod.Head, uri)).Result;
-            headResponseMessage.EnsureSuccessStatusCode();
+            if (!headResponseMessage.IsSuccessStatusCode) return;
 
             try
             {
@@ -71,23 +72,20 @@ namespace WebCrawler
         private async Task ParseHtml(Uri uri, string path, int depthLevel)
         {
             var response = await _client.GetAsync(uri);
-            string responseBody = response.Content.ReadAsStringAsync().Result;
             response.EnsureSuccessStatusCode();
+            string responseBody = response.Content.ReadAsStringAsync().Result;
 
             _visitedUri.Add(uri);
 
             var document = new HtmlDocument();
             document.LoadHtml(responseBody);
-            var memoryStream = new MemoryStream();
-            document.Save(memoryStream);
-            memoryStream.Seek(0, SeekOrigin.Begin);
 
-            _recorder.RecordHtml(path, _baseUri, uri, document);
+            var createdPath = _recorder.RecordHtml(path, _baseUri, uri, document);
 
             var links = document.DocumentNode.Descendants().SelectMany(d => d.Attributes.Where(atr => atr.Name == "href" || atr.Name == "src"));
             foreach (var link in links)
             {
-                await ProcessUri(new Uri(_baseUri + link.Value), path, depthLevel + 1);
+                await ProcessUri(new Uri(link.Value), createdPath, depthLevel + 1);
             }
         }
 
@@ -127,5 +125,8 @@ namespace WebCrawler
                 default: return false;
             }
         }
+
+        private string GetStringWithoutInvalidCharacters(string input)
+            => Regex.Replace(input ?? string.Empty, "https|http|[<>:;\"|?*]|//", string.Empty);
     }
 }
