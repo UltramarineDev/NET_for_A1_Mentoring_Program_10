@@ -33,7 +33,7 @@
 
 ### 7. HTTP Fundamentals
    * Homework: [Task 1](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/tree/master/7.HTTP_fundamentals/HTTPfundamentals), Task: [Task 1](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/blob/master/7.HTTP_fundamentals/Task%201.pdf)
-   * Homework: [Task 2](), Task: [Task 2](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/blob/master/7.HTTP_fundamentals/Task%202.pdf)
+   * Homework: [Task 2](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/tree/master/7.HTTP_fundamentals/Northwind/Northwind.Web), Task: [Task 2](https://github.com/UltramarineDev/NET_for_A1_Mentoring_Program_10/blob/master/7.HTTP_fundamentals/Task%202.pdf)
    
 ### 8. Logging and monitoring
    
