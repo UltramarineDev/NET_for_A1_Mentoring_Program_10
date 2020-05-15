@@ -22,4 +22,3 @@ namespace Northwind.Web.Models
         public string ShipCountry { get; set; }
     }
 }
-}

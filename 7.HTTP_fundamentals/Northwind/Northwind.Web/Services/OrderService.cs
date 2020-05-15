@@ -1,7 +1,6 @@
 ﻿using Northwind.Data;
 using Northwind.Data.Entities;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 
 namespace Northwind.Web.Services
@@ -16,10 +15,12 @@ namespace Northwind.Web.Services
 
         public IEnumerable<Order> GetMany(OrderRequestContext orderRequestContext)
         {
-            var orders = _orderRepository.GetMany()
-                .Include(o => o.Customer)
-                .Include(o => o.Employee)
-                .Include(o => o.Shipper);
+            if (orderRequestContext == null)
+            {
+                return Enumerable.Empty<Order>();
+            }
+
+            var orders = _orderRepository.GetMany();
 
             if (orderRequestContext.CustomerId != null)
             {
