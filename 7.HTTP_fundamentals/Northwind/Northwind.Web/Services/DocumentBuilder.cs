@@ -8,6 +8,8 @@ using System.Xml.Serialization;
 using System.IO;
 using System.Xml;
 using NPOI.XSSF.UserModel;
+using NPOI.SS.UserModel;
+using NPOI.HSSF.UserModel;
 
 namespace Northwind.Web.Services
 {
@@ -59,7 +61,55 @@ namespace Northwind.Web.Services
 
         private void BuildExcel(IEnumerable<Order> orders, Stream stream)
         {
-           
+            if (orders == null || !orders.Any())
+            {
+                return;
+            }
+
+            IWorkbook book;
+            try
+            {
+                book = new XSSFWorkbook();
+            }
+            catch
+            {
+                book = null;
+            }
+
+            if (book == null)
+            {
+                book = new HSSFWorkbook();
+            }
+
+            var sheet = book.CreateSheet("Orders sheet");
+
+            var row = sheet.CreateRow(0);
+            var cell = row.CreateCell(0);
+            cell.SetCellValue(nameof(Order.OrderId));
+
+            row = sheet.CreateRow(1);
+            cell = row.CreateCell(1);
+            cell.SetCellValue(nameof(Order.CustomerId));
+
+            row = sheet.CreateRow(2);
+            cell = row.CreateCell(2);
+            cell.SetCellValue(nameof(Order.EmployeeId));
+
+            row = sheet.CreateRow(3);
+            cell = row.CreateCell(3);
+            cell.SetCellValue(nameof(Order.OrderDate));
+
+            var ordersList = orders.ToList();
+            for (int i = 0, j = 1; i < ordersList.Count(); i++, j++)
+            {
+                row = sheet.CreateRow(j);
+                row.CreateCell(0).SetCellValue(ordersList[i].OrderId);
+                row.CreateCell(1).SetCellValue(ordersList[i].CustomerId);
+                row.CreateCell(2).SetCellValue((double)ordersList[i]?.EmployeeId);
+                row.CreateCell(3).SetCellValue(ordersList[i]?.OrderDate.ToString());
+            }
+
+            book.Write(stream);
         }
     }
 }
