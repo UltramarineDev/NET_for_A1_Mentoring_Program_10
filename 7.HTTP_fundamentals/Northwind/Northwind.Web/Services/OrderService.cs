@@ -15,17 +15,13 @@ namespace Northwind.Web.Services
 
         public IEnumerable<Order> GetMany(OrderRequestContext orderRequestContext)
         {
-            if (orderRequestContext == null)
+            if (orderRequestContext == null || orderRequestContext.CustomerId == null)
             {
                 return Enumerable.Empty<Order>();
             }
 
-            var orders = _orderRepository.GetMany();
-
-            if (orderRequestContext.CustomerId != null)
-            {
-                orders = orders.Where(o => o.CustomerId == orderRequestContext.CustomerId);
-            }
+            var orders = _orderRepository.GetMany().Where(o => o.CustomerId == orderRequestContext.CustomerId);
+            var orders1 = _orderRepository.GetMany().ToList();
 
             if (orderRequestContext.DateFrom != null)
             {
@@ -37,6 +33,8 @@ namespace Northwind.Web.Services
                 orders = orders.Where(o => o.OrderDate != null && o.OrderDate <= orderRequestContext.DateTo);
             }
 
+            orders = orders.OrderBy(o => o.OrderId);
+
             if (orderRequestContext.Skip != null)
             {
                 orders = orders.Skip(orderRequestContext.Skip.Value);
@@ -47,7 +45,7 @@ namespace Northwind.Web.Services
                 orders = orders.Take(orderRequestContext.Take.Value);
             }
 
-            return orders.OrderBy(o => o.OrderId).ToList();
+            return orders.ToList();
         }
     }
 }

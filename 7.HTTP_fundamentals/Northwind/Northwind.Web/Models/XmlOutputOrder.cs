@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Northwind.Data.Entities;
+using System;
 using System.Xml.Serialization;
 
 namespace Northwind.Web.Models
@@ -20,5 +21,9 @@ namespace Northwind.Web.Models
         public string ShipRegion { get; set; }
         public string ShipPostalCode { get; set; }
         public string ShipCountry { get; set; }
+
+        //public Customer Customer { get; set; }
+        //public Employee Employee { get; set; }
+        //public Shipper Shipper { get; set; }
     }
 }

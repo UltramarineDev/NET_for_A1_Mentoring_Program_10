@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 
 namespace Northwind.Data.Entities
 {
+    [XmlRoot("Order")]
     public class Order
     {
+        [XmlElement("orderId")]
         public int OrderId { get; set; }
         public string CustomerId { get; set; }
         public int? EmployeeId { get; set; }

@@ -16,7 +16,7 @@ namespace Northwind.Data.Migrations
 
         protected override void Seed(NorthwindDataContext context)
         {
-            SeedDatabase(context);
+           // SeedDatabase(context);
         }
 
         private void SeedDatabase(NorthwindDataContext context)
@@ -29,22 +29,22 @@ namespace Northwind.Data.Migrations
                 {
                     CategoryId = 1,
                     CategoryName = "Beverages",
-                    Description = "Soft drinks, coffees, teas",
-                    Picture = (byte[])(new ImageConverter()).ConvertTo(Image.FromFile(Path.Combine(projectDirectory, "Images\\Beverages.jpg")), typeof(byte[]))
+                    Description = "Soft drinks, coffees, teas"
+                    // Picture = (byte[])(new ImageConverter()).ConvertTo(Image.FromFile(Path.Combine(projectDirectory, "Images\\Beverages.jpg")), typeof(byte[]))
                 },
                 new Category
                 {
                     CategoryId = 2,
                     CategoryName = "Condiments",
-                    Description = "Sweet and savory sauces, relishes, spreads",
-                    Picture = (byte[])(new ImageConverter()).ConvertTo(Image.FromFile(Path.Combine(projectDirectory, "Images\\Condiments.jpg")), typeof(byte[]))
+                    Description = "Sweet and savory sauces, relishes, spreads"
+                   // Picture = (byte[])(new ImageConverter()).ConvertTo(Image.FromFile(Path.Combine(projectDirectory, "Images\\Condiments.jpg")), typeof(byte[]))
                 },
                 new Category
                 {
                     CategoryId = 2,
                     CategoryName = "Seafood",
-                    Description = "Seaweed and fish",
-                    Picture = (byte[])(new ImageConverter()).ConvertTo(Image.FromFile(Path.Combine(projectDirectory, "Images\\Seafood.jpg")), typeof(byte[]))
+                    Description = "Seaweed and fish"
+                    // Picture = (byte[])(new ImageConverter()).ConvertTo(Image.FromFile(Path.Combine(projectDirectory, "Images\\Seafood.jpg")), typeof(byte[]))
                 }
                 );
 
@@ -75,7 +75,7 @@ namespace Northwind.Data.Migrations
                     Extension = "5467",
                     Notes = "Education includes a BA in psychology from Colorado State University in 1970.",
                     ReportsTo = 2,
-                    Photo = (byte[])(new ImageConverter()).ConvertTo(Image.FromFile(Path.Combine(projectDirectory, "Images\\Employee1.jpg")), typeof(byte[])),
+                   // Photo = (byte[])(new ImageConverter()).ConvertTo(Image.FromFile(Path.Combine(projectDirectory, "Images\\Employee1.jpg")), typeof(byte[])),
                     PhotoPath = "http://accweb/emmployees/davolio.bmp",
                 },
                 new Employee()
@@ -96,7 +96,7 @@ namespace Northwind.Data.Migrations
                     Extension = "3457",
                     Notes = "Andrew received his BTS commercial in 1974 and a Ph.D. in international marketing from the University of Dallas in 1981.  He is fluent in French and Italian and reads German.  He joined the company as a sales representative, was promoted to sales manager in January 1992 and to vice president of sales in March 1993.  Andrew is a member of the Sales Management Roundtable, the Seattle Chamber of Commerce, and the Pacific Rim Importers Association.",
                     ReportsTo = null,
-                    Photo = (byte[])(new ImageConverter()).ConvertTo(Image.FromFile(Path.Combine(projectDirectory, "Images\\Employee2.jpg")), typeof(byte[])),
+                   // Photo = (byte[])(new ImageConverter()).ConvertTo(Image.FromFile(Path.Combine(projectDirectory, "Images\\Employee2.jpg")), typeof(byte[])),
                     PhotoPath = "http://accweb/emmployees/fuller.bmp",
                 },
                 new Employee()
@@ -117,7 +117,7 @@ namespace Northwind.Data.Migrations
                     Extension = "3355",
                     Notes = "Janet has a BS degree in chemistry from Boston College (1984).  She has also completed a certificate program in food retailing management.  Janet was hired as a sales associate in 1991 and promoted to sales representative in February 1992.",
                     ReportsTo = 2,
-                    Photo = (byte[])(new ImageConverter()).ConvertTo(Image.FromFile(Path.Combine(projectDirectory, "Images\\Employee3.jpg")), typeof(byte[])),
+                  //  Photo = (byte[])(new ImageConverter()).ConvertTo(Image.FromFile(Path.Combine(projectDirectory, "Images\\Employee3.jpg")), typeof(byte[])),
                     PhotoPath = "http://accweb/emmployees/leverling.bmp",
                 }
                 );

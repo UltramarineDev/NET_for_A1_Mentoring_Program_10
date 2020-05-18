@@ -1,12 +1,9 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Web;
-using Northwind.Data.Entities;
 using Northwind.Data;
 using Northwind.Web.Services;
+using System.Linq;
 
 namespace Northwind.Web
 {
@@ -58,13 +55,14 @@ namespace Northwind.Web
         private OrderRequestContext GetRequestContext(HttpRequest httpRequest)
         {
             string content;
-            using (var reader = new StreamReader(httpRequest.InputStream))
+            using (var reader = new StreamReader(httpRequest.GetBufferedInputStream()))
             {
                 content = reader.ReadToEnd();
             }
 
-            var objectDeserialized = JsonConvert.DeserializeObject<OrderRequestContext>(content);
-            return objectDeserialized;
+            var parsedContent = HttpUtility.ParseQueryString(content);
+            string json = JsonConvert.SerializeObject(parsedContent.Cast<string>().ToDictionary(k => k, v => parsedContent[v]));
+            return JsonConvert.DeserializeObject<OrderRequestContext>(json);
         }
     }
 }

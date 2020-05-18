@@ -3,6 +3,6 @@
     public enum OutputFormats
     {
         XML = 1,
-        Excel = 1
+        Excel = 2
     }
 }
