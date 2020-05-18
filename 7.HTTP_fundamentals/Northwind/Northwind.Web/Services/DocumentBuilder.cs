@@ -1,8 +1,6 @@
 ﻿using Northwind.Data.Entities;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using Northwind.Web.Models;
 using System.Xml.Serialization;
 using System.IO;
@@ -82,31 +80,43 @@ namespace Northwind.Web.Services
             }
 
             var sheet = book.CreateSheet("Orders sheet");
+            ICellStyle styleMiddle = book.CreateCellStyle();
+            styleMiddle.Alignment = HorizontalAlignment.Center;
+            styleMiddle.VerticalAlignment = VerticalAlignment.Center;
+            styleMiddle.WrapText = true;
 
             var row = sheet.CreateRow(0);
             var cell = row.CreateCell(0);
             cell.SetCellValue(nameof(Order.OrderId));
+            row.GetCell(0).CellStyle = styleMiddle;
 
-            row = sheet.CreateRow(1);
             cell = row.CreateCell(1);
             cell.SetCellValue(nameof(Order.CustomerId));
+            row.GetCell(1).CellStyle = styleMiddle;
 
-            row = sheet.CreateRow(2);
             cell = row.CreateCell(2);
             cell.SetCellValue(nameof(Order.EmployeeId));
+            row.GetCell(2).CellStyle = styleMiddle;
 
-            row = sheet.CreateRow(3);
             cell = row.CreateCell(3);
             cell.SetCellValue(nameof(Order.OrderDate));
+            row.GetCell(3).CellStyle = styleMiddle;
 
             var ordersList = orders.ToList();
             for (int i = 0, j = 1; i < ordersList.Count(); i++, j++)
             {
                 row = sheet.CreateRow(j);
                 row.CreateCell(0).SetCellValue(ordersList[i].OrderId);
+                row.GetCell(0).CellStyle = styleMiddle;
+
                 row.CreateCell(1).SetCellValue(ordersList[i].CustomerId);
+                row.GetCell(1).CellStyle = styleMiddle;
+
                 row.CreateCell(2).SetCellValue((double)ordersList[i]?.EmployeeId);
+                row.GetCell(2).CellStyle = styleMiddle;
+
                 row.CreateCell(3).SetCellValue(ordersList[i]?.OrderDate.ToString());
+                row.GetCell(3).CellStyle = styleMiddle;
             }
 
             book.Write(stream);
