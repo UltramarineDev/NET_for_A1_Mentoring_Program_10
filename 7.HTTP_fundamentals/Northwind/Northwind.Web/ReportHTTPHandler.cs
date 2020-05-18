@@ -10,6 +10,7 @@ namespace Northwind.Web
     public class ReportHTTPHandler : IHttpHandler
     {
         private const string ExcelType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+        private const string XmlType = "text/xml";
         private NorthwindDataContext dbContext = new NorthwindDataContext();
 
         public bool IsReusable => false;
@@ -31,7 +32,7 @@ namespace Northwind.Web
                 context.Response.OutputStream.Write(buffer, 0, buffer.Length);
             }
 
-            context.Response.ContentType = "text/xml";
+            context.Response.ContentType = GetContentType(format);
         }
 
         private OutputFormats GetOutputFormat(HttpRequest httpRequest)
@@ -60,9 +61,28 @@ namespace Northwind.Web
                 content = reader.ReadToEnd();
             }
 
+            if (string.IsNullOrEmpty(content))
+            {
+                content = httpRequest.QueryString.ToString();
+            }
+
             var parsedContent = HttpUtility.ParseQueryString(content);
             string json = JsonConvert.SerializeObject(parsedContent.Cast<string>().ToDictionary(k => k, v => parsedContent[v]));
             return JsonConvert.DeserializeObject<OrderRequestContext>(json);
+        }
+
+        private string GetContentType(OutputFormats format)
+        {
+            switch (format)
+            {
+                case OutputFormats.Excel:
+                    return ExcelType;
+
+                case OutputFormats.XML:
+                    return XmlType;
+
+                default: return ExcelType;
+            }
         }
     }
 }
