@@ -59,10 +59,10 @@ namespace Northwind.Web.Services
 
         private void BuildExcel(IEnumerable<Order> orders, Stream stream)
         {
-            if (orders == null || !orders.Any())
-            {
-                return;
-            }
+            //if (!orders.Any())
+            //{
+            //    return;
+            //}
 
             IWorkbook book;
             try

@@ -46,11 +46,11 @@ namespace Northwind.Web
                     case ExcelType:
                         return OutputFormats.Excel;
                     default:
-                        return OutputFormats.XML;
+                        return OutputFormats.Excel;
                 }
             }
 
-            return OutputFormats.XML;
+            return OutputFormats.Excel;
         }
 
         private OrderRequestContext GetRequestContext(HttpRequest httpRequest)
@@ -81,7 +81,8 @@ namespace Northwind.Web
                 case OutputFormats.XML:
                     return XmlType;
 
-                default: return ExcelType;
+                default: 
+                    return ExcelType;
             }
         }
     }
